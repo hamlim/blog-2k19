@@ -1,0 +1,17 @@
+{
+  "name": "@matthamlin/blog",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "@mdx-js/tag": "0.16.6"
+  },
+  "devDependencies": {
+    "@native-bundler/core": "0.0.6-alpha.4"
+  },
+  "scripts": {
+    "build": "node -r esm ./build.js"
+  }
+}

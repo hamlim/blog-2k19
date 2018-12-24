@@ -1,0 +1,20 @@
+{
+  "name": "@matthamlin/build-scripts",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/cli": "7.2.3",
+    "@babel/core": "7.2.2",
+    "@babel/preset-env": "7.2.3",
+    "@mdx-js/mdx": "0.16.6"
+  },
+  "devDependencies": {
+    "@native-bundler/core": "0.0.3"
+  },
+  "scripts": {
+    "build": "babel src/ --out-dir dist/"
+  }
+}

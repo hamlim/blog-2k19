@@ -1,0 +1,11 @@
+{
+  "name": "blog-2k19",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
+  "license": "MIT",
+  "devDependencies": {
+    "@native-bundler/core": "0.0.3",
+    "esm": "3.0.84"
+  }
+}
