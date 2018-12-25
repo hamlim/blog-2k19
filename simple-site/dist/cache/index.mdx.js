@@ -68,7 +68,19 @@ function (_React$Component) {
       }, "Matt Hamlin's Blog"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "Welcome to my blog"));
+      }, "Welcome to my blog, this is an initial v0.0.1 alpha version of the site, completly static and\ngenerated at build time."), _react.default.createElement(_tag.MDXTag, {
+        name: "h3",
+        components: components
+      }, "Posts:"), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
+        var files = _ref.files;
+        return _react.default.createElement("ul", null, files.map(function (file) {
+          return _react.default.createElement("li", {
+            key: file
+          }, _react.default.createElement("a", {
+            href: file.replace("posts/", "").replace(".mdx", ".html")
+          }, file.replace("posts/", "").replace(".mdx", "")));
+        }));
+      }));
     }
   }]);
 

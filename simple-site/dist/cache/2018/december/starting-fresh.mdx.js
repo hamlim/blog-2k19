@@ -121,7 +121,60 @@ function (_React$Component) {
       }, "I decided the other day that it would be a lot simpler to just drop all the current infrastructure I\nhad around my previous blog and just start fresh."), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "My hope is that without all the technical debt the previous site had, I could get this one into a\ndecent spot without much work and focus on the writing."));
+      }, "My hope is that without all the technical debt the previous site had, I could get this one into a\ndecent spot without much work and focus on the writing."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "So this new site is built using a node build script around 150 lines in total, building off of the\nawesome work around the MDX language spec, ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "babel"), ", ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "prettier"), ", and even ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "eval"), "!"), _react.default.createElement(_tag.MDXTag, {
+        name: "h2",
+        components: components
+      }, "What to do next"), _react.default.createElement(_tag.MDXTag, {
+        name: "ul",
+        components: components
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul",
+        props: {
+          className: "task-list-item"
+        }
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "input",
+        components: components,
+        parentName: "li",
+        props: {
+          type: "checkbox",
+          checked: false,
+          disabled: true
+        }
+      }), " ", "Port over some of the front pages from my current site"), _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul",
+        props: {
+          className: "task-list-item"
+        }
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "input",
+        components: components,
+        parentName: "li",
+        props: {
+          type: "checkbox",
+          checked: false,
+          disabled: true
+        }
+      }), " ", "Make a build watch script")));
     }
   }]);
 

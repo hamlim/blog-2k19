@@ -1,3 +1,20 @@
 # Matt Hamlin's Blog
 
-Welcome to my blog
+Welcome to my blog, this is an initial v0.0.1 alpha version of the site, completly static and
+generated at build time.
+
+### Posts:
+
+<fileContext.Consumer>
+  {({ files }) => (
+    <ul>
+      {files.map(file => (
+        <li key={file}>
+          <a href={file.replace('posts/', '').replace('.mdx', '.html')}>
+            {file.replace('posts/', '').replace('.mdx', '')}
+          </a>
+        </li>
+      ))}
+    </ul>
+  )}
+</fileContext.Consumer>
