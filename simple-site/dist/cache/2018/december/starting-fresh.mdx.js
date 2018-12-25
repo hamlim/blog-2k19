@@ -174,7 +174,23 @@ function (_React$Component) {
           checked: false,
           disabled: true
         }
-      }), " ", "Make a build watch script")));
+      }), " ", "Make a build watch script"), _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul",
+        props: {
+          className: "task-list-item"
+        }
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "input",
+        components: components,
+        parentName: "li",
+        props: {
+          type: "checkbox",
+          checked: false,
+          disabled: true
+        }
+      }), " ", "Deploy to now (see if I can deploy as a subdomain on matthamlin.me)")));
     }
   }]);
 
