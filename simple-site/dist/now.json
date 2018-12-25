@@ -1,0 +1,4 @@
+{
+  "builds": [{ "src": "**/*.html", "use": "@now/static" }],
+  "version": 2
+}

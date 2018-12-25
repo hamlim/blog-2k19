@@ -75,6 +75,6 @@ export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${fil
       first = last
     }
     let pathToFile = `${dist}/${filePath.join('/').replace('.mdx', '')}.html`
-    let bootstrapHTML = wrapWithBootstrap(html, first.replace('.mdx', '')).replace(/\r?\n|\r/g, '')
+    let bootstrapHTML = wrapWithBootstrap(html, first.replace('.mdx', '')).replace(/\r/g, '')
     fs.writeFileSync(pathToFile, bootstrapHTML)
   })
