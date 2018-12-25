@@ -5,3 +5,13 @@ This is some mdx content
 > With a blockquote
 
 ~~strikethrough~~
+
+<fileContext.Consumer>
+  {({ files }) => (
+    <ul>
+      {files.map(f => (
+        <li key={f}>{f}</li>
+      ))}
+    </ul>
+  )}
+</fileContext.Consumer>

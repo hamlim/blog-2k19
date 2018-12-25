@@ -63,33 +63,65 @@ function (_React$Component) {
         name: "wrapper",
         components: components
       }, _react.default.createElement(_tag.MDXTag, {
-        name: "h2",
+        name: "h1",
         components: components
-      }, "Testing static MDX render"), _react.default.createElement(_tag.MDXTag, {
+      }, "Starting Fresh"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "This is some mdx content"), _react.default.createElement(_tag.MDXTag, {
-        name: "blockquote",
+      }, "Over the past two years or so I think I have tried to rewrite my personal site about 3 or 4 times.\nEach time with the same goal of making a simple blogging platform that gets out of the way and just\nlets me focus on the writing."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
         components: components
+      }, "Since I find myself with two weeks off of work and its the end of the year / beginning of the next\nyear I figured I would go for another rewrite this time with the long term goal of doing the\nfollowing:"), _react.default.createElement(_tag.MDXTag, {
+        name: "ul",
+        components: components
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul"
       }, _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components,
-        parentName: "blockquote"
-      }, "With a blockquote")), _react.default.createElement(_tag.MDXTag, {
-        name: "p",
-        components: components
+        parentName: "li"
+      }, "Get the bootstrapping work out of the way and focus on the writing")), _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul"
       }, _react.default.createElement(_tag.MDXTag, {
-        name: "del",
+        name: "p",
+        components: components,
+        parentName: "li"
+      }, "Use this as an opportunity to test out personal projects like ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
         components: components,
         parentName: "p"
-      }, "strikethrough")), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
-        var files = _ref.files;
-        return _react.default.createElement("ul", null, files.map(function (f) {
-          return _react.default.createElement("li", {
-            key: f
-          }, f);
-        }));
-      }));
+      }, "native-bundler"), " and ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "reroute"))), _react.default.createElement(_tag.MDXTag, {
+        name: "li",
+        components: components,
+        parentName: "ul"
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components,
+        parentName: "li"
+      }, "Be easy to setup and get running with simple additions as I go forward (i.e. scale out from an\ninitial product)"))), _react.default.createElement(_tag.MDXTag, {
+        name: "h2",
+        components: components
+      }, "Where to start?"), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "A few months ago I was planning on kicking off this rewrite within the same repo and site that I\nhave currently, I started by updating to emotion v10, swapping react-router for reach router and\nchanging all my old content from markdown to mdx."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "This was all too much work to do as part of a rewrite and I begin to question the benefit of doing\nsuch a task."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "I decided the other day that it would be a lot simpler to just drop all the current infrastructure I\nhad around my previous blog and just start fresh."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "My hope is that without all the technical debt the previous site had, I could get this one into a\ndecent spot without much work and focus on the writing."));
     }
   }]);
 

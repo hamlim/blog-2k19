@@ -63,33 +63,12 @@ function (_React$Component) {
         name: "wrapper",
         components: components
       }, _react.default.createElement(_tag.MDXTag, {
-        name: "h2",
+        name: "h1",
         components: components
-      }, "Testing static MDX render"), _react.default.createElement(_tag.MDXTag, {
+      }, "Matt Hamlin's Blog"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "This is some mdx content"), _react.default.createElement(_tag.MDXTag, {
-        name: "blockquote",
-        components: components
-      }, _react.default.createElement(_tag.MDXTag, {
-        name: "p",
-        components: components,
-        parentName: "blockquote"
-      }, "With a blockquote")), _react.default.createElement(_tag.MDXTag, {
-        name: "p",
-        components: components
-      }, _react.default.createElement(_tag.MDXTag, {
-        name: "del",
-        components: components,
-        parentName: "p"
-      }, "strikethrough")), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
-        var files = _ref.files;
-        return _react.default.createElement("ul", null, files.map(function (f) {
-          return _react.default.createElement("li", {
-            key: f
-          }, f);
-        }));
-      }));
+      }, "Welcome to my blog"));
     }
   }]);
 

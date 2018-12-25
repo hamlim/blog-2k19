@@ -4,55 +4,43 @@ import path from 'path'
 import fs from 'fs'
 import prettier from 'prettier'
 import { transformSync } from '@babel/core'
+import { mkDirByPathSync, makeTitle, searchRecursive } from './utils.js'
+import { styles } from './styles.js'
 
 const posts = './posts'
 const dist = './dist'
 const cache = './dist/cache'
 
-function searchRecursive(base, ext, files = fs.readdirSync(base), result = []) {
-  files.forEach(file => {
-    const newbase = path.join(base, file)
-    if (fs.statSync(newbase).isDirectory()) {
-      result = searchRecursive(newbase, ext, fs.readdirSync(newbase), result)
-    } else {
-      if (file.substr(-1 * (ext.length + 1)) === '.' + ext) {
-        result.push(newbase)
-      }
-    }
-  })
-  return result
-}
-
-function makeTitle(filePath) {
-  let title = filePath.split('.')[0]
-  title = title.replace('/', '')
-  title = title[0].toUpperCase() + title.slice(1)
-  return title
-}
-
 function wrapWithBootstrap(html, filePath, title = makeTitle(filePath)) {
   return `<html lang="en">
 <head>
+<style>${styles}</style>
 <title>${title}</title>
 </head>
-<body>${html}</body>
+<body><main class="u-readable">${html}</main></body>
 </html>`
 }
 
-const files = searchRecursive(posts, 'mdx')
+let files = searchRecursive(posts, 'mdx')
 
 const jsSource = files
   .map(file => {
-    return [file, mdx.sync(fs.readFileSync(file)).replace(/export default/g, '')]
+    return [
+      file.replace('posts/', ''),
+      mdx.sync(fs.readFileSync(file)).replace(/export default/g, ''),
+    ]
   })
-  .map(([file, source, filePath = file.replace(/posts/g, '')]) => {
+  .map(([file, source, filePath = file.split('/')]) => {
     return [
       filePath,
       `import React from 'react';
+import {fileContext} from './src/file-context.js';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {MDXTag} from '@mdx-js/tag';
 ${source}
-export default renderToStaticMarkup(<MDXContent />)`,
+export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${files
+        .map(f => `'${f}'`)
+        .join(',')}] }}><MDXContent /></fileContext.Provider>)`,
     ]
   })
   .map(([filePath, source]) => [
@@ -60,7 +48,7 @@ export default renderToStaticMarkup(<MDXContent />)`,
     prettier.format(source, { semi: false, parser: 'babylon' }),
   ])
   .map(([filePath, source]) => {
-    const { code } = transformSync(source, {
+    let { code } = transformSync(source, {
       presets: ['@babel/preset-env', '@babel/preset-react'],
     })
     return [filePath, code]
@@ -69,9 +57,24 @@ export default renderToStaticMarkup(<MDXContent />)`,
     let exports = {}
     let module = { exports }
     eval(source)
-    fs.writeFileSync(`${cache}/${filePath}.js`, source)
+    let [last, ...fullpath] = filePath.reverse()
+    fullpath = fullpath.reverse()
+    let [first] = fullpath
+    if (fullpath.length === 0) {
+      first = last
+    }
+    let pathToDir = `${cache}/${fullpath.join('/')}`
+    fs.writeFileSync(`${cache}/${fullpath.join('/')}/${last}.js`, source)
     return [filePath, exports.default]
   })
   .map(([filePath, html]) => {
-    fs.writeFileSync(`${dist}/${filePath.split('.mdx')[0]}.html`, wrapWithBootstrap(html, filePath))
+    let [last, ...fullpath] = filePath.reverse()
+    fullpath = fullpath.reverse()
+    let [first] = fullpath
+    if (fullpath.length === 0) {
+      first = last
+    }
+    let pathToFile = `${dist}/${filePath.join('/').replace('.mdx', '')}.html`
+    let bootstrapHTML = wrapWithBootstrap(html, first.replace('.mdx', '')).replace(/\r?\n|\r/g, '')
+    fs.writeFileSync(pathToFile, bootstrapHTML)
   })
