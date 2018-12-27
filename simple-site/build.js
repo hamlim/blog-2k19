@@ -24,12 +24,17 @@ function wrapWithBootstrap(html, filePath, title = makeTitle(filePath)) {
 let files = searchRecursive(posts, 'mdx')
 
 const jsSource = files
+  // map down to an array of arrays
+  // [ 'path/to/file.mdx', src]
   .map(file => {
     return [
       file.replace('posts/', ''),
       mdx.sync(fs.readFileSync(file)).replace(/export default/g, ''),
     ]
   })
+  // filter out drafts
+  .filter(([file]) => !file.endsWith('.draft.mdx'))
+  // wrap in additional JS, and export defult the rendered markup
   .map(([file, source, filePath = file.split('/')]) => {
     return [
       filePath,
@@ -43,16 +48,19 @@ export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${fil
         .join(',')}] }}><MDXContent /></fileContext.Provider>)`,
     ]
   })
+  // format the file with prettier, this probably isn't needed
   .map(([filePath, source]) => [
     filePath,
     prettier.format(source, { semi: false, parser: 'babylon' }),
   ])
+  // transform with babel
   .map(([filePath, source]) => {
     let { code } = transformSync(source, {
       presets: ['@babel/preset-env', '@babel/preset-react'],
     })
     return [filePath, code]
   })
+  // eval the code, write to cache
   .map(([filePath, source]) => {
     let exports = {}
     let module = { exports }
@@ -67,6 +75,7 @@ export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${fil
     fs.writeFileSync(`${cache}/${fullpath.join('/')}/${last}.js`, source)
     return [filePath, exports.default]
   })
+  // generate the html, write to dist
   .map(([filePath, html]) => {
     let [last, ...fullpath] = filePath.reverse()
     fullpath = fullpath.reverse()

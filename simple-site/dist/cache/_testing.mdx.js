@@ -63,22 +63,31 @@ function (_React$Component) {
         name: "wrapper",
         components: components
       }, _react.default.createElement(_tag.MDXTag, {
-        name: "h1",
+        name: "h2",
         components: components
-      }, "Matt Hamlin's Blog"), _react.default.createElement(_tag.MDXTag, {
+      }, "Testing static MDX render"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "Welcome to my blog, this is an initial v0.0.1 alpha version of the site, completly static and\ngenerated at build time."), _react.default.createElement(_tag.MDXTag, {
-        name: "h3",
+      }, "This is some mdx content"), _react.default.createElement(_tag.MDXTag, {
+        name: "blockquote",
         components: components
-      }, "Posts:"), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components,
+        parentName: "blockquote"
+      }, "With a blockquote")), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "del",
+        components: components,
+        parentName: "p"
+      }, "strikethrough")), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
         var files = _ref.files;
-        return _react.default.createElement("ul", null, files.map(function (file) {
+        return _react.default.createElement("ul", null, files.map(function (f) {
           return _react.default.createElement("li", {
-            key: file
-          }, _react.default.createElement("a", {
-            href: file.replace("posts/", "").replace(".mdx", ".html")
-          }, file.replace("posts/", "").replace(".mdx", "")));
+            key: f
+          }, f);
         }));
       }));
     }
@@ -89,7 +98,7 @@ function (_React$Component) {
 
 var _default = (0, _server.renderToStaticMarkup)(_react.default.createElement(_fileContext.fileContext.Provider, {
   value: {
-    files: ["posts/2018/december/starting-fresh.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
+    files: ["posts/2018/december/starting-fresh.mdx", "posts/_testing.mdx", "posts/index.mdx"]
   }
 }, _react.default.createElement(MDXContent, null)));
 
