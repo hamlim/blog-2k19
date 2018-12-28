@@ -1,7 +1,7 @@
 # Matt Hamlin's Blog
 
-Welcome to my blog, this is an initial v0.0.1 alpha version of the site, completly static and
-generated at build time.
+Welcome to my blog, this is an initial early version of the site, completly static and generated at
+build time using tools like `MDX`, `prettier`, and `esm`.
 
 ### Posts:
 
@@ -11,7 +11,14 @@ generated at build time.
       {files.map(file => (
         <li key={file}>
           <a href={file.replace('posts/', '').replace('.mdx', '.html')}>
-            {file.replace('posts/', '').replace('.mdx', '')}
+            {file
+              .replace('posts/', '')
+              .replace('.mdx', '')
+              .split('/')
+              .reverse()[0]
+              .split('-')
+              .map(hunk => hunk[0].toUpperCase() + hunk.slice(1))
+              .join(' ')}
           </a>
         </li>
       ))}

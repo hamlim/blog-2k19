@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _fileContext = require("./src/file-context.js");
 
+var _header = _interopRequireDefault(require("./src/header.js"));
+
 var _server = require("react-dom/server");
 
 var _tag = require("@mdx-js/tag");
@@ -68,7 +70,19 @@ function (_React$Component) {
       }, "Matt Hamlin's Blog"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "Welcome to my blog, this is an initial v0.0.1 alpha version of the site, completly static and\ngenerated at build time."), _react.default.createElement(_tag.MDXTag, {
+      }, "Welcome to my blog, this is an initial early version of the site, completly static and generated at\nbuild time using tools like ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "MDX"), ", ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "prettier"), ", and ", _react.default.createElement(_tag.MDXTag, {
+        name: "inlineCode",
+        components: components,
+        parentName: "p"
+      }, "esm"), "."), _react.default.createElement(_tag.MDXTag, {
         name: "h3",
         components: components
       }, "Posts:"), _react.default.createElement(_fileContext.fileContext.Consumer, null, function (_ref) {
@@ -78,7 +92,9 @@ function (_React$Component) {
             key: file
           }, _react.default.createElement("a", {
             href: file.replace("posts/", "").replace(".mdx", ".html")
-          }, file.replace("posts/", "").replace(".mdx", "")));
+          }, file.replace("posts/", "").replace(".mdx", "").split("/").reverse()[0].split("-").map(function (hunk) {
+            return hunk[0].toUpperCase() + hunk.slice(1);
+          }).join(" ")));
         }));
       }));
     }
@@ -89,8 +105,12 @@ function (_React$Component) {
 
 var _default = (0, _server.renderToStaticMarkup)(_react.default.createElement(_fileContext.fileContext.Provider, {
   value: {
-    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/writing-unit-tests.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
+    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/testing-software.mdx", "posts/index.mdx"]
   }
-}, _react.default.createElement(MDXContent, null)));
+}, _react.default.createElement(MDXContent, {
+  components: {
+    Header: _header.default
+  }
+})));
 
 exports.default = _default;

@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _fileContext = require("./src/file-context.js");
 
+var _header = _interopRequireDefault(require("./src/header.js"));
+
 var _server = require("react-dom/server");
 
 var _tag = require("@mdx-js/tag");
@@ -62,7 +64,7 @@ function (_React$Component) {
       return _react.default.createElement(_tag.MDXTag, {
         name: "wrapper",
         components: components
-      }, _react.default.createElement(_tag.MDXTag, {
+      }, _react.default.createElement(_header.default, null), _react.default.createElement(_tag.MDXTag, {
         name: "h1",
         components: components
       }, "Starting Fresh"), _react.default.createElement(_tag.MDXTag, {
@@ -199,8 +201,12 @@ function (_React$Component) {
 
 var _default = (0, _server.renderToStaticMarkup)(_react.default.createElement(_fileContext.fileContext.Provider, {
   value: {
-    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/writing-unit-tests.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
+    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/testing-software.mdx", "posts/index.mdx"]
   }
-}, _react.default.createElement(MDXContent, null)));
+}, _react.default.createElement(MDXContent, {
+  components: {
+    Header: _header.default
+  }
+})));
 
 exports.default = _default;

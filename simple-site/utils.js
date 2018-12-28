@@ -33,7 +33,10 @@ export function mkDirByPathSync(targetDir) {
 }
 
 export function makeTitle(filePath) {
-  let title = filePath[0].toUpperCase() + filePath.slice(1)
+  let title = filePath
+    .split('-')
+    .map(hunk => hunk[0].toUpperCase() + hunk.slice(1))
+    .join(' ')
   return title
 }
 
@@ -49,4 +52,15 @@ export function searchRecursive(base, ext, files = fs.readdirSync(base), result 
     }
   })
   return result
+}
+
+export function toArray(arg) {
+  if (Array.isArray(arg)) {
+    return arg
+  }
+  return [arg]
+}
+
+export function filterDrafts([file]) {
+  return !file.endsWith('.draft.mdx')
 }

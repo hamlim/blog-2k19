@@ -9,6 +9,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _fileContext = require("./src/file-context.js");
 
+var _header = _interopRequireDefault(require("./src/header.js"));
+
 var _server = require("react-dom/server");
 
 var _tag = require("@mdx-js/tag");
@@ -62,10 +64,10 @@ function (_React$Component) {
       return _react.default.createElement(_tag.MDXTag, {
         name: "wrapper",
         components: components
-      }, _react.default.createElement(_tag.MDXTag, {
+      }, _react.default.createElement(_header.default, null), _react.default.createElement(_tag.MDXTag, {
         name: "h1",
         components: components
-      }, "Writing (good) Software Tests"), _react.default.createElement(_tag.MDXTag, {
+      }, "Testing Software"), _react.default.createElement(_tag.MDXTag, {
         name: "blockquote",
         components: components
       }, _react.default.createElement(_tag.MDXTag, {
@@ -75,7 +77,7 @@ function (_React$Component) {
       }, "Writing unit tests for code is surprisingly a hot button topic within software development. Many\ndevelopers have very strong opinions in how tests should be approached, written, and implemented.")), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "Over the past few months, several of our engineering departments have been pushing for more adoption\nof frontend unit tests for their code. Thanks to this push, our Frontend Platforms team has found\nthat we need to put a lot more effort into the documentation around unit testing. Several engineers,\nfrom both our team and other feature teams, have been writing docs, pairing with others to write\ntests, and writing guides and presentations around unit testing."), _react.default.createElement(_tag.MDXTag, {
+      }, "Over the past few months, several of our engineering departments have been pushing for more adoption\nof frontend tests for their code. Thanks to this push, our Frontend Platforms team has found that we\nneed to put a lot more effort into the documentation around writing tests. Several engineers, from\nboth our team and other feature teams, have been writing docs, pairing with others to write tests,\nand writing guides and presentations around unit testing."), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
       }, "Through all this work, we have slowly shifted our mindset from approaching testing as something that\nis a consistent, unit-based, solid foundation for an application to something that is a bit more\nfluid, a bit farther away from testing each unit individually, and something that changes as the\napplication changes."), _react.default.createElement(_tag.MDXTag, {
@@ -150,14 +152,26 @@ function (_React$Component) {
       }, "Your code will change, and your application will change as well, you shouldn't worry about how well\ncovered the code is, and instead focus on how well the user flow is covered. Do you have a test for\nthat checkout flow on site? What about for the user login flow? These are the things worth capturing\ncoverage for, real parts of the application and not the number of lines of code."), _react.default.createElement(_tag.MDXTag, {
         name: "h2",
         components: components
+      }, "Prefer Integration Tests over Unit Tests"), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "In my experience, preferring to write integration tests rather than unit tests is even more\ncontentious than the point above about code coverage, many developers seem to extrapolate from TDD\nthat tests must be focused to units of code rather than writen for the larger picture of the feature\nor application as a whole."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "The tests that I have found that are worth keeping around over time are these integration tests,\nones that aren't at all worried about the implementation of the feature but rather the user flow\nthrough the feature."), _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components
+      }, "The most important goal in software development (keep in mind writing tests is part of this work) is\nto deliver a working, enjoyable experience for the customer. Your customer won't care about the\nimplementation of the checkout button, or if you are using some middleware for authentication. The\nkey, when writing code, is to think about the user. Sometimes your user may be another developer\nusing your service to implement another feature, or it may be a customer looking to buy their\nfavorite bed frame."), _react.default.createElement(_tag.MDXTag, {
+        name: "h2",
+        components: components
       }, "The Half-Life of Code and Tests"), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "In my experience, preferring to write integration tests rather than unit tests is even more\ncontentious than the point above about code coverage, many developers seem to extrapolate from TDD\nthat tests must be focused to units of code rather than writen for the larger picture of the feature\nor application as a whole. I think the key in this insight is not that through all stages of\ndevelopment you must be writing integration tests, but rather that ", _react.default.createElement(_tag.MDXTag, {
+      }, "I think the key for getting value out of software testing is not that you must write integration\ntests through all stages of development, but rather that ", _react.default.createElement(_tag.MDXTag, {
         name: "strong",
         components: components,
         parentName: "p"
-      }, "over time"), " the tests that\nshould ", _react.default.createElement(_tag.MDXTag, {
+      }, "over time"), " the tests that should\n", _react.default.createElement(_tag.MDXTag, {
         name: "strong",
         components: components,
         parentName: "p"
@@ -170,10 +184,14 @@ function (_React$Component) {
       }, "Unfortunately many of our modern testing tools don't really communicate this ephemerality of testing\nsoftware, either through their implementation or through their documentation. This leads new\ndevelopers to approach writing tests as something to do once, ship it and then forget it."), _react.default.createElement(_tag.MDXTag, {
         name: "p",
         components: components
-      }, "Often these kinds of tests add the friction to development that so many developers worry about when\nthey try to get into testing their code. A good mental model for tests is that often pure unit tests\nshould have a short half-life within the codebase, meaning they only exist for a short amount of\ntime (frequently only during the very early stages of a new feature or application), and the\nhalf-life of integration tests is much longer and should remain in the codebase for the lifetime of\nthe feature."), _react.default.createElement(_tag.MDXTag, {
-        name: "p",
+      }, "Often unit tests, those written to accomplish a code coverage goal or test a particular\nimplementation detail, add friction to development that so many developers worry about when they try\nto get into testing their code. A good mental model for tests is that often pure unit tests should\nhave a short half-life within the codebase, meaning they only exist for a short amount of time\n(frequently only during the very early stages of a new feature or application), and the half-life of\nintegration tests is much longer and should remain in the codebase for the lifetime of the feature."), _react.default.createElement(_tag.MDXTag, {
+        name: "blockquote",
         components: components
-      }, "The tests that I have found that are worth keeping around over time are these integration tests,\nones that aren't at all worried about the implementation of the feature but rather the user flow\nthrough the feature."), _react.default.createElement(_tag.MDXTag, {
+      }, _react.default.createElement(_tag.MDXTag, {
+        name: "p",
+        components: components,
+        parentName: "blockquote"
+      }, "Unit tests should have a short half-life within your codebase, focus on code that has a long\nhalf-life instead")), _react.default.createElement(_tag.MDXTag, {
         name: "hr",
         components: components
       }), _react.default.createElement(_tag.MDXTag, {
@@ -195,8 +213,12 @@ function (_React$Component) {
 
 var _default = (0, _server.renderToStaticMarkup)(_react.default.createElement(_fileContext.fileContext.Provider, {
   value: {
-    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/writing-unit-tests.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
+    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/testing-software.mdx", "posts/index.mdx"]
   }
-}, _react.default.createElement(MDXContent, null)));
+}, _react.default.createElement(MDXContent, {
+  components: {
+    Header: _header.default
+  }
+})));
 
 exports.default = _default;

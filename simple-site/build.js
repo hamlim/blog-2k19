@@ -4,7 +4,7 @@ import path from 'path'
 import fs from 'fs'
 import prettier from 'prettier'
 import { transformSync } from '@babel/core'
-import { mkDirByPathSync, makeTitle, searchRecursive } from './utils.js'
+import { mkDirByPathSync, makeTitle, searchRecursive, toArray, filterDrafts } from './utils.js'
 import { styles } from './styles.js'
 
 const posts = './posts'
@@ -33,19 +33,22 @@ const jsSource = files
     ]
   })
   // filter out drafts
-  .filter(([file]) => !file.endsWith('.draft.mdx'))
+  .filter(filterDrafts)
   // wrap in additional JS, and export defult the rendered markup
   .map(([file, source, filePath = file.split('/')]) => {
     return [
       filePath,
       `import React from 'react';
 import {fileContext} from './src/file-context.js';
+import Header from './src/header.js';
 import {renderToStaticMarkup} from 'react-dom/server';
 import {MDXTag} from '@mdx-js/tag';
 ${source}
 export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${files
+        .map(toArray)
+        .filter(filterDrafts)
         .map(f => `'${f}'`)
-        .join(',')}] }}><MDXContent /></fileContext.Provider>)`,
+        .join(',')}] }}><MDXContent components={{ Header }} /></fileContext.Provider>)`,
     ]
   })
   // format the file with prettier, this probably isn't needed
