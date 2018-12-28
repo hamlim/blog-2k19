@@ -199,7 +199,7 @@ function (_React$Component) {
 
 var _default = (0, _server.renderToStaticMarkup)(_react.default.createElement(_fileContext.fileContext.Provider, {
   value: {
-    files: ["posts/2018/december/starting-fresh.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
+    files: ["posts/2018/december/starting-fresh.mdx", "posts/2018/december/writing-unit-tests.mdx", "posts/_testing.draft.mdx", "posts/index.mdx"]
   }
 }, _react.default.createElement(MDXContent, null)));
 
