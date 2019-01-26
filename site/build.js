@@ -1,12 +1,26 @@
-import bundler from '@native-bundler/core'
+import { styles } from './styles.js'
+import build from '@matthamlin/blog-build-scripts'
 
-bundler({
-  entry: './src/index.js',
-  out: './dist',
-  config: {
-    cacheExternals: true,
-  },
-  cache: new Map(),
+// build posts
+build({
+  src: './posts',
+  dist: './dist/posts',
+  cache: './dist/cache/posts',
+  styles,
+  fileContextPath: './src/components/file-context.js',
+  additionalImports: `import Header from './src/components/header.js'`,
+  additionalComponents: 'Header',
+})
+
+// build static pages
+build({
+  src: './src',
+  dist: './dist',
+  cache: './dist/cache',
+  styles,
+  fileContextPath: './src/components/file-context.js',
+  additionalImports: `import Header from './src/components/header.js'`,
+  additionalComponents: 'Header',
 })
 
 process.on('unhandledRejection', (reason, p) => {

@@ -5,5 +5,10 @@
   "main": "index.js",
   "author": "Matthew Hamlin <hamlim@outlook.com> (https://matthamlin.me/)",
   "license": "MIT",
-  "devDependencies": {}
+  "devDependencies": {},
+  "workspaces": [
+    "build-scripts",
+    "simple-site",
+    "site"
+  ]
 }
