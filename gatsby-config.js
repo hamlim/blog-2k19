@@ -6,6 +6,7 @@ module.exports = {
   },
   plugins: [
     'gatsby-mdx',
+    'gatsby-plugin-twitter',
     {
       resolve: `gatsby-plugin-feed`,
       options: mdxFeed,
