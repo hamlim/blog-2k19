@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'gatsby'
 
 export default function Header() {
   return (
     <header>
-      <a href="/">
+      <Link to="/">
         <mark>Matt Hamlin</mark>
-      </a>
+      </Link>
     </header>
   )
 }
