@@ -1,5 +1,5 @@
 import { styles } from './styles.js'
-import build from '@matthamlin/blog-build-scripts'
+import build from './index.js'
 
 // build posts
 build({
@@ -7,8 +7,8 @@ build({
   dist: './dist/posts',
   cache: './dist/cache/posts',
   styles,
-  fileContextPath: './src/components/file-context.js',
-  additionalImports: `import Header from './src/components/header.js'`,
+  fileContextPath: '../src/components/file-context.js',
+  additionalImports: `import Header from '../src/components/header.js'`,
   additionalComponents: 'Header',
 })
 
@@ -18,8 +18,8 @@ build({
   dist: './dist',
   cache: './dist/cache',
   styles,
-  fileContextPath: './src/components/file-context.js',
-  additionalImports: `import Header from './src/components/header.js'`,
+  fileContextPath: '../src/components/file-context.js',
+  additionalImports: `import Header from '../src/components/header.js'`,
   additionalComponents: 'Header',
 })
 

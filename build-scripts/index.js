@@ -1,3 +1,28 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = build;
+
+var _mdx = _interopRequireDefault(require("@mdx-js/mdx"));
+
+var _server = _interopRequireDefault(require("react-dom/server"));
+
+var _path = _interopRequireDefault(require("path"));
+
+var _fs = _interopRequireDefault(require("fs"));
+
+var _prettier = _interopRequireDefault(require("prettier"));
+
+var _core = require("@babel/core");
+
+var _utils = require("./utils.js");
+
+var _vm = _interopRequireDefault(require("vm"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _toArray(arr) { return _arrayWithHoles(arr) || _iterableToArray(arr) || _nonIterableRest(); }
 
 function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
@@ -14,86 +39,67 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-import mdx from '@mdx-js/mdx';
-import reactDOMServer from 'react-dom/server';
-import path from 'path';
-import fs from 'fs';
-import prettier from 'prettier';
-import { transformSync } from '@babel/core';
-import { mkDirByPathSync, makeTitle, searchRecursive, toArray, filterDrafts } from './utils.js';
-import vm from 'vm';
-const renderToStaticMarkup = reactDOMServer.renderToStaticMarkup;
-const defaultConfig = {
+var renderToStaticMarkup = _server.default.renderToStaticMarkup;
+var defaultConfig = {
   src: './posts',
   dist: './dist',
   cache: './dist/cache',
   styles: '',
   scripts: '',
-  filterDrafts,
-  fileContextPath: './src/file-context.js',
+  filterDrafts: _utils.filterDrafts,
+  fileContextPath: '../src/file-context.js',
   additionalImports: '',
   additionalComponents: ''
 };
 
 function wrapWithBootstrap(_ref) {
-  let html = _ref.html,
+  var html = _ref.html,
       filePath = _ref.filePath,
       styles = _ref.styles,
       scripts = _ref.scripts;
-  let title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : makeTitle(filePath);
-  return `<html lang="en">
-<head>
-<style>${styles}</style>
-<title>${title}</title>
-</head>
-<body><main class="u-readable">${html}</main>${scripts}</body>
-</html>`;
+  var title = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : (0, _utils.makeTitle)(filePath);
+  return "<html lang=\"en\">\n<head>\n<style>".concat(styles, "</style>\n<title>").concat(title, "</title>\n</head>\n<body><main class=\"u-readable\">").concat(html, "</main>").concat(scripts, "</body>\n</html>");
 }
 
-export default function build() {
-  let initialConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig;
+function build() {
+  var initialConfig = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultConfig;
 
-  let config = _objectSpread({}, defaultConfig, initialConfig);
+  var config = _objectSpread({}, defaultConfig, initialConfig);
 
-  let files = searchRecursive(config.src, 'mdx');
-  const jsSource = files // map down to an array of arrays
+  var files = (0, _utils.searchRecursive)(config.src, 'mdx');
+  var jsSource = files // map down to an array of arrays
   // [ 'path/to/file.mdx', src]
-  .map(file => {
-    return [file.replace(config.src.replace('./', ''), ''), mdx.sync(fs.readFileSync(file)).replace(/export default/g, '')];
+  .map(function (file) {
+    return [file.replace(config.src.replace('./', ''), ''), _mdx.default.sync(_fs.default.readFileSync(file)).replace(/export default/g, '')];
   }) // filter out drafts
   .filter(config.filterDrafts) // wrap in additional JS, and export defult the rendered markup
-  .map((_ref2) => {
-    let _ref3 = _slicedToArray(_ref2, 3),
+  .map(function (_ref2) {
+    var _ref3 = _slicedToArray(_ref2, 3),
         file = _ref3[0],
         source = _ref3[1],
         _ref3$ = _ref3[2],
         filePath = _ref3$ === void 0 ? file.split('/') : _ref3$;
 
-    return [filePath, `import React from 'react';
-    import {fileContext} from '${config.fileContextPath}';
-    import reactDOMServer from 'react-dom/server';
-    import {MDXTag} from '@mdx-js/tag';
-    ${config.additionalImports}
-    const {renderToStaticMarkup} = reactDOMServer;
-    ${source}
-    export default renderToStaticMarkup(<fileContext.Provider value={{ files: [${files.map(toArray).filter(config.filterDrafts).map(f => `'${f}'`).join(',')}] }}><MDXContent components={{ ${config.additionalComponents} }} /></fileContext.Provider>)`];
+    return [filePath, "import React from 'react';\n    import {fileContext} from '".concat(config.fileContextPath, "';\n    import reactDOMServer from 'react-dom/server';\n    import {MDXTag} from '@mdx-js/tag';\n    ").concat(config.additionalImports, "\n    const {renderToStaticMarkup} = reactDOMServer;\n    ").concat(source, "\n    export default renderToStaticMarkup(<fileContext.Provider value={{ files: [").concat(files.map(_utils.toArray).filter(config.filterDrafts).map(function (f) {
+      return "'".concat(f, "'");
+    }).join(','), "] }}><MDXContent components={{ ").concat(config.additionalComponents, " }} /></fileContext.Provider>)")];
   }) // format the file with prettier, this probably isn't needed
-  .map((_ref4) => {
-    let _ref5 = _slicedToArray(_ref4, 2),
+  .map(function (_ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
         filePath = _ref5[0],
         source = _ref5[1];
 
-    return [filePath, prettier.format(source, {
+    return [filePath, _prettier.default.format(source, {
       semi: false,
       parser: 'babel'
     })];
   }) // transform with babel
-  .map((_ref6) => {
-    let _ref7 = _slicedToArray(_ref6, 2),
+  .map(function (_ref6) {
+    var _ref7 = _slicedToArray(_ref6, 2),
         filePath = _ref7[0],
         source = _ref7[1];
 
-    let _transformSync = transformSync(source, {
+    var _transformSync = (0, _core.transformSync)(source, {
       presets: ['@babel/preset-env', '@babel/preset-react']
     }),
         code = _transformSync.code;
@@ -101,34 +107,34 @@ export default function build() {
     return [filePath, code];
   }) // eval the code, write to cache
   .map(function parseSource(_ref8) {
-    let _ref9 = _slicedToArray(_ref8, 2),
+    var _ref9 = _slicedToArray(_ref8, 2),
         filePath = _ref9[0],
         source = _ref9[1];
 
-    let exports = {};
-    let module = {
-      exports
+    var exports = {};
+    var module = {
+      exports: exports
     };
 
     try {
-      vm.runInNewContext(source, {
-        exports,
-        module,
-        require
+      _vm.default.runInNewContext(source, {
+        exports: exports,
+        module: module,
+        require: require
       });
     } catch (e) {
       console.log(e);
       throw new Error('Error!!!');
     }
 
-    let _filePath$reverse = filePath.reverse(),
+    var _filePath$reverse = filePath.reverse(),
         _filePath$reverse2 = _toArray(_filePath$reverse),
         last = _filePath$reverse2[0],
         fullpath = _filePath$reverse2.slice(1);
 
     fullpath = fullpath.reverse();
 
-    let _fullpath = fullpath,
+    var _fullpath = fullpath,
         _fullpath2 = _slicedToArray(_fullpath, 1),
         first = _fullpath2[0];
 
@@ -136,23 +142,25 @@ export default function build() {
       first = last;
     }
 
-    let pathToDir = `${cache}/${fullpath.join('/')}`;
-    fs.writeFileSync(`${cache}/${fullpath.join('/')}/${last}.js`, source);
+    var pathToDir = "".concat(cache, "/").concat(fullpath.join('/'));
+
+    _fs.default.writeFileSync("".concat(cache, "/").concat(fullpath.join('/'), "/").concat(last, ".js"), source);
+
     return [filePath, exports.default];
   }) // generate the html, write to dist
-  .map((_ref10) => {
-    let _ref11 = _slicedToArray(_ref10, 2),
+  .map(function (_ref10) {
+    var _ref11 = _slicedToArray(_ref10, 2),
         filePath = _ref11[0],
         html = _ref11[1];
 
-    let _filePath$reverse3 = filePath.reverse(),
+    var _filePath$reverse3 = filePath.reverse(),
         _filePath$reverse4 = _toArray(_filePath$reverse3),
         last = _filePath$reverse4[0],
         fullpath = _filePath$reverse4.slice(1);
 
     fullpath = fullpath.reverse();
 
-    let _fullpath3 = fullpath,
+    var _fullpath3 = fullpath,
         _fullpath4 = _slicedToArray(_fullpath3, 1),
         first = _fullpath4[0];
 
@@ -160,13 +168,14 @@ export default function build() {
       first = last;
     }
 
-    let pathToFile = `${dist}/${filePath.join('/').replace('.mdx', '')}.html`;
-    let bootstrapHTML = wrapWithBootstrap({
-      html,
+    var pathToFile = "".concat(dist, "/").concat(filePath.join('/').replace('.mdx', ''), ".html");
+    var bootstrapHTML = wrapWithBootstrap({
+      html: html,
       filePath: first.replace('.mdx', ''),
       styles: config.styles,
       scripts: config.scripts
     }).replace(/\r/g, '');
-    fs.writeFileSync(pathToFile, bootstrapHTML);
+
+    _fs.default.writeFileSync(pathToFile, bootstrapHTML);
   });
 }

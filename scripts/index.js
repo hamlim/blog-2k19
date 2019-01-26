@@ -16,7 +16,7 @@ const defaultConfig = {
   styles: '',
   scripts: '',
   filterDrafts,
-  fileContextPath: './src/file-context.js',
+  fileContextPath: '../src/file-context.js',
   additionalImports: '',
   additionalComponents: '',
 }
