@@ -375,7 +375,8 @@ export default function GlobalStyles() {
           white-space: normal;
         }
 
-        pre > code {
+        pre > code,
+        .react-live {
           line-height: 1.563em;
           display: block;
           padding: 1rem;
@@ -486,6 +487,10 @@ export default function GlobalStyles() {
 
         .u-horizontal-center {
           margin: 0 auto;
+        }
+
+        .accent {
+          color: #76dc99;
         }
       `}
     />

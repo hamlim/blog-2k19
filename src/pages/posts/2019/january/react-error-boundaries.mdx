@@ -10,7 +10,7 @@ So lets dive in!
 
 Simply put, you can think of Error Boundaries as `try ... catch` blocks within a component tree. This is an example of a try catch block:
 
-```js
+```.js
 try {
   doSomethingThatMayThrow()
 } catch (error) {
@@ -23,7 +23,7 @@ will capture this thrown value and continue script execution.
 
 In React this would look like something like the following:
 
-```jsx
+```.jsx
 <ErrorBoundary>
   <ComponentThatMayThrow />
 </ErrorBoundary>
@@ -38,4 +38,23 @@ An error boundary can be implemented within any component that uses either the:
 - `componentDidCatch` or
 - `detDerivedStateFromError`
 
-Both of these methods allow the component to catch an error thrown from within its children.
+lifecycle methods. Both of these methods allow the component to catch an error thrown from its children.
+
+So lets setup a simple generic Error Boundary component.
+
+```.jsx
+class ErrorBoundary extends React.Component {
+  state = {
+    hasCaughtError: false
+  }
+  componentDidCatch(error) {
+    this.setState({ hasCaughtError: true });
+  }
+  render() {
+    if (this.stAte.hasCaughtError) {
+      return <p>Oh no, an error has occurred</p>;
+    }
+    return this.props.children
+  }
+}
+```

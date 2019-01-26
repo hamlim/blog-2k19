@@ -5,6 +5,48 @@ import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 
+import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
+import { MDXProvider } from '@mdx-js/tag'
+
+function Code({ children, className, ...props }) {
+  // See: https://github.com/c8r/x0/blob/5d5956517b67dcc2ea66974ca629085c2d17f9c7/src/scope.js#L47
+  const lang = className.replace(/^language-/, '')
+  const type = lang.charAt(0)
+  switch (type) {
+    case '.': {
+      return (
+        <LiveProvider
+          code={children}
+          {...props}
+          className={className.replace(/\.|!/, '')}
+        >
+          <LiveEditor />
+        </LiveProvider>
+      )
+    }
+    case '!': {
+      return (
+        <LiveProvider
+          code={children}
+          {...props}
+          className={className.replace(/\.|!/, '')}
+        >
+          <LiveEditor />
+          <LiveError />
+          <LivePreview />
+        </LiveProvider>
+      )
+    }
+    default: {
+      return (
+        <pre className={className} {...props}>
+          {children}
+        </pre>
+      )
+    }
+  }
+}
+
 const Wrapper = styled.div({
   margin: '0 auto',
   maxWidth: 960,
@@ -44,7 +86,9 @@ const Layout = ({ children }) => (
             <html lang="en" />
           </Helmet>
           <Header siteTitle={data.site.siteMetadata.title} />
-          <Wrapper>{children}</Wrapper>
+          <MDXProvider components={{ code: Code }}>
+            <Wrapper>{children}</Wrapper>
+          </MDXProvider>
         </>
       )}
     />
