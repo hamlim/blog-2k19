@@ -384,11 +384,6 @@ export default function GlobalStyles() {
           overflow: scroll;
         }
 
-        /* Forces a new-line at the end of a code block for layout purposes. */
-        pre > code::after {
-          content: ' ';
-        }
-
         /* Blockquote
 ––––––––––––––––––––––––––––––––– */
         blockquote {

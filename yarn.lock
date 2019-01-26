@@ -4794,6 +4794,11 @@ gatsby-plugin-manifest@^2.0.2:
     bluebird "^3.5.0"
     sharp "^0.21.0"
 
+gatsby-plugin-mdx-prismjs@1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-mdx-prismjs/-/gatsby-plugin-mdx-prismjs-1.0.4.tgz#e86f122f9f825ab331a85cc22fd46929b731e316"
+  integrity sha512-kUWUEjdP6O8He+ZvWLugRYS2mvjeGO+MHv1ofJ1zdU+JFh7SJBkuCdkOVRtQUy1dOy8x1ChKx78EM7pO2MQ13Q==
+
 gatsby-plugin-offline@^2.0.5:
   version "2.0.21"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-offline/-/gatsby-plugin-offline-2.0.21.tgz#d4637aef5dc6022eb9bd6031123788e73447d3d7"

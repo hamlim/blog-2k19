@@ -3,3 +3,39 @@
 The other week I got an email from a developer wondering if I could help them learn more about Error Boundaries within React.
 
 I figured that instead of sharing that information directly to them, I would spend a bit more time writing it up in a blog post so others could learn from the content as well.
+
+So lets dive in!
+
+## What are Error Boundaries?
+
+Simply put, you can think of Error Boundaries as `try ... catch` blocks within a component tree. This is an example of a try catch block:
+
+```js
+try {
+  doSomethingThatMayThrow()
+} catch (error) {
+  handleError(error)
+}
+```
+
+In that snippet above, the `doSomethingThatMayThrow` function can `throw` anything (generally an error) and the `catch` block
+will capture this thrown value and continue script execution.
+
+In React this would look like something like the following:
+
+```jsx
+<ErrorBoundary>
+  <ComponentThatMayThrow />
+</ErrorBoundary>
+```
+
+Great, so we have a rough understanding of what they look like in practice, but how do they actually work?
+
+## How do Error Boundaries Work?
+
+An error boundary can be implemented within any component that uses either the:
+
+- `componentDidCatch` or
+- `detDerivedStateFromError`
+
+Both of these methods allow the component to catch an error thrown from within its children.
