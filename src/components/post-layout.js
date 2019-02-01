@@ -68,10 +68,18 @@ const Wrapper = styled.div({
   paddingTop: 0,
 })
 
-const Layout = ({ data: { mdx } }) => (
-  <>
-    <GlobalStyles />
+export default function Layout(
+  props
+) {
+  let mdx;
+  if (typeof props.data !== 'undefined') {
+    mdx = props.data.mdx
+  } else {
+    mdx = { ...props.pageContext, code: { body: null } };
+  }
+  return (
     <>
+      <GlobalStyles />
       <Helmet
         title={mdx.frontmatter.title}
         meta={[
@@ -95,10 +103,8 @@ const Layout = ({ data: { mdx } }) => (
         </Wrapper>
       </MDXProvider>
     </>
-  </>
-)
-
-export default Layout
+  )
+}
 
 export const pageQuery = graphql`
   query BlogPostQuery($id: String) {

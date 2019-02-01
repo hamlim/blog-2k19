@@ -23,10 +23,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-twitter',
-    {
-      resolve: `gatsby-plugin-feed`,
-      options: mdxFeed,
-    },
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
   ],
