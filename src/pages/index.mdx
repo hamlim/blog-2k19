@@ -1,4 +1,4 @@
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 # Hey 👋
 
@@ -8,12 +8,36 @@ Its built with awesome tools like:
 
 - `gatsby`
 - `mdx`
+- `react-live`
 - and `emotion`
+
+Expect to see more content showing up here as I migrate it over from my previous site!
 
 ## Blog Posts
 
-- <Link to="/posts/2019/january/react-error-boundaries">
-    React Error Boundaries
-  </Link>
-- <Link to="/posts/2018/december/testing-software">Testing Software</Link>
-- <Link to="/posts/2018/december/starting-fresh">Starting Fresh</Link>
+<ul>
+  {props.data.allMdx.edges.map(({ node }) => (
+    <li key={node.id}>
+      <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+    </li>
+  ))}
+</ul>
+
+export const pageQuery = graphql`
+  query blogIndex {
+    allMdx {
+      edges {
+        node {
+          id
+          excerpt
+          frontmatter {
+            title
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
+  }
+`

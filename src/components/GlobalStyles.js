@@ -382,6 +382,9 @@ export default function GlobalStyles() {
           padding: 1rem;
           white-space: pre;
           margin-bottom: 1.563rem;
+        }
+
+        .prism-code {
           overflow: scroll;
         }
 

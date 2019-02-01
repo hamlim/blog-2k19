@@ -1,3 +1,7 @@
+---
+title: React Error Boundaries
+---
+
 # React Error Boundaries
 
 The other week I got an email from a developer wondering if I could help them learn more about Error Boundaries within React.
@@ -58,3 +62,56 @@ class ErrorBoundary extends React.Component {
   }
 }
 ```
+
+In this component above, whenever some component anywhere within its children throws an error, React will
+propagate that error up to this component, and call its `componentDidCatch` lifecycle method with the error
+that was thrown.
+
+This component can then setState to change the children returned from render in order to recover from that
+thrown error.
+
+## Caveats
+
+As with most things, there are some caveats with this workflow. The first and most notable, is that this component
+will only catch errors thrown during the `render` phase. This means that if an error occurs within a callback that is not
+a `setState` updater, the error boundary component will not catch it.
+
+Another caveat, or feature I guess is that if you do want to catch a particular error from an even handler higher up in
+the component tree at your error boundary, you can `throw` from within a setState:
+
+```!jsx
+// Note this is a live editor! Feel free to toy around with the code and see the
+// actual output above!
+class Example extends Component {
+  handleChange = e => {
+    this.setState(() => {
+      throw new Error('Error!');
+    })
+  }
+  render() {
+    return (
+      <input
+        onChange={this.handleChange} placeholder="Try typing here!"
+        style={{ height: 35, fontSize: 18, width: '100%', padding: '1rem'}}
+      />
+    )
+  }
+}
+```
+
+## A note on getDerivedStateFromError
+
+The `getDerivedStateFromError` lifecycle was introduced later than the `componentDidCatch` lifecycle, and operates on a
+similar mechanism as the `getDerivedStateFromProps` lifecycle method in that it is a single pass handler. This means that React
+is able to reconcile the error handling within the same rendering batch as when the error occurs, _I think_. I don't really understand what
+this actually means however, so take this with a grain of salt 🧂 .
+
+## Where can I learn more?
+
+As always, the ReactJS first party docs site is hands down one of the best resources out there about React. Here is a great
+[getting started](https://reactjs.org/docs/error-boundaries.html#introducing-error-boundaries) introduction to Error Boundaries
+on the ReactJS Docs.
+
+---
+
+Have feedback about this post or questions, don't hesitate to reach out on [Twitter (@immatthamlin)](https://mobile.twitter.com/immatthamlin)!
