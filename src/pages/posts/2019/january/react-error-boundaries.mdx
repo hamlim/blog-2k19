@@ -7,6 +7,8 @@ title: React Error Boundaries
 The other week I got an email from a developer wondering if I could help them learn more about Error Boundaries within React.
 
 I figured that instead of sharing that information directly to them, I would spend a bit more time writing it up in a blog post so others could learn from the content as well.
+This post is only meant as a brief introduction to the concept behind Error Boundaries within React, for more advanced information refer to the
+where can I learn more section at the bottom of the page.
 
 So lets dive in!
 
@@ -40,7 +42,7 @@ Great, so we have a rough understanding of what they look like in practice, but 
 An error boundary can be implemented within any component that uses either the:
 
 - `componentDidCatch` or
-- `detDerivedStateFromError`
+- `getDerivedStateFromError`
 
 lifecycle methods. Both of these methods allow the component to catch an error thrown from its children.
 
@@ -76,7 +78,7 @@ As with most things, there are some caveats with this workflow. The first and mo
 will only catch errors thrown during the `render` phase. This means that if an error occurs within a callback that is not
 a `setState` updater, the error boundary component will not catch it.
 
-Another caveat, or feature I guess is that if you do want to catch a particular error from an even handler higher up in
+Another caveat, or feature I guess is that if you do want to catch a particular error from an event handler higher up in
 the component tree at your error boundary, you can `throw` from within a setState:
 
 ```!jsx
