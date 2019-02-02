@@ -495,6 +495,10 @@ export default function GlobalStyles() {
         .accent {
           color: #76dc99;
         }
+
+        .accent-bg {
+          background-color: #76dc99;
+        }
       `}
     />
   )

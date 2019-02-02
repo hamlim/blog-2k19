@@ -29,7 +29,6 @@ export const pageQuery = graphql`
       edges {
         node {
           id
-          excerpt
           frontmatter {
             title
           }

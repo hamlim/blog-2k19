@@ -16,7 +16,7 @@ So lets dive in!
 
 Simply put, you can think of Error Boundaries as `try ... catch` blocks within a component tree. This is an example of a try catch block:
 
-```.js
+```js
 try {
   doSomethingThatMayThrow()
 } catch (error) {
@@ -29,7 +29,7 @@ will capture this thrown value and continue script execution.
 
 In React this would look like something like the following:
 
-```.jsx
+```jsx
 <ErrorBoundary>
   <ComponentThatMayThrow />
 </ErrorBoundary>
@@ -48,17 +48,17 @@ lifecycle methods. Both of these methods allow the component to catch an error t
 
 So lets setup a simple generic Error Boundary component.
 
-```.jsx
+```jsx
 class ErrorBoundary extends React.Component {
   state = {
-    hasCaughtError: false
+    hasCaughtError: false,
   }
   componentDidCatch(error) {
-    this.setState({ hasCaughtError: true });
+    this.setState({ hasCaughtError: true })
   }
   render() {
     if (this.stAte.hasCaughtError) {
-      return <p>Oh no, an error has occurred</p>;
+      return <p>Oh no, an error has occurred</p>
     }
     return this.props.children
   }
@@ -81,20 +81,22 @@ a `setState` updater, the error boundary component will not catch it.
 Another caveat, or feature I guess is that if you do want to catch a particular error from an event handler higher up in
 the component tree at your error boundary, you can `throw` from within a setState:
 
-```!jsx
-// Note this is a live editor! Feel free to toy around with the code and see the
+```jsx react-live
+// Note this is a live editor!
+// Feel free to toy around with the code and see the
 // actual output above!
 class Example extends Component {
   handleChange = e => {
     this.setState(() => {
-      throw new Error('Error!');
+      throw new Error('Error!')
     })
   }
   render() {
     return (
       <input
-        onChange={this.handleChange} placeholder="Try typing here!"
-        style={{ height: 35, fontSize: 18, width: '100%', padding: '1rem'}}
+        onChange={this.handleChange}
+        placeholder="Try typing here!"
+        style={{ height: 35, fontSize: 18, width: '100%', padding: '1rem' }}
       />
     )
   }

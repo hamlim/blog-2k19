@@ -5,29 +5,21 @@ import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
+import Highlight, { defaultProps } from 'prism-react-renderer'
+import { preToCodeBlock } from 'mdx-utils'
+
+import CodeStyles, { dracula } from './CodeStyles.js'
 
 import { transform } from '@babel/standalone'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import { MDXProvider } from '@mdx-js/tag'
 
-function Code({ children, className, ...props }) {
-  // See: https://github.com/c8r/x0/blob/5d5956517b67dcc2ea66974ca629085c2d17f9c7/src/scope.js#L47
-  const lang = className.replace(/^language-/, '')
-  const type = lang.charAt(0)
-  switch (type) {
-    case '.': {
-      return (
-        <LiveProvider
-          code={children}
-          {...props}
-          className={className.replace(/\.|!/, '')}
-        >
-          <LiveEditor />
-        </LiveProvider>
-      )
-    }
-    case '!': {
-      return (
+function Code({ codeString, language, ...props }) {
+  if (props['react-live']) {
+    let { 'react-live': omit, ...p } = props
+    return (
+      <>
+        <CodeStyles />
         <LiveProvider
           noInline
           transformCode={code =>
@@ -37,27 +29,45 @@ function Code({ children, className, ...props }) {
               }).code
             }render(<Example />);`
           }
-          code={children}
+          code={codeString}
           scope={{
             Component: React.Component,
             Fragment: React.Fragment,
           }}
-          {...props}
-          className={className.replace(/\.|!/, '')}
+          mountStylesheet={false}
+          {...p}
+          className={language}
         >
           <LivePreview />
           <LiveError />
           <LiveEditor />
         </LiveProvider>
-      )
-    }
-    default: {
-      return (
-        <pre className={className} {...props}>
-          {children}
-        </pre>
-      )
-    }
+      </>
+    )
+  } else {
+    return (
+      <>
+        <CodeStyles />
+        <Highlight
+          {...defaultProps}
+          theme={dracula}
+          code={codeString}
+          language={language}
+        >
+          {({ className, style, tokens, getLineProps, getTokenProps }) => (
+            <pre className={className} style={style}>
+              {tokens.map((line, i) => (
+                <div {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => (
+                    <span {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          )}
+        </Highlight>
+      </>
+    )
   }
 }
 
@@ -68,14 +78,25 @@ const Wrapper = styled.div({
   paddingTop: 0,
 })
 
-export default function Layout(
-  props
-) {
-  let mdx;
+const components = {
+  pre: preProps => {
+    const props = preToCodeBlock(preProps)
+    // if there's a codeString and some props, we passed the test
+    if (props) {
+      return <Code {...props} />
+    } else {
+      // it's possible to have a pre without a code in it
+      return <pre {...preProps} />
+    }
+  },
+}
+
+export default function Layout(props) {
+  let mdx
   if (typeof props.data !== 'undefined') {
     mdx = props.data.mdx
   } else {
-    mdx = { ...props.pageContext, code: { body: null } };
+    mdx = { ...props.pageContext, code: { body: null } }
   }
   return (
     <>
@@ -97,7 +118,7 @@ export default function Layout(
         <html lang="en" />
       </Helmet>
       <Header siteTitle={mdx.frontmatter.title} />
-      <MDXProvider components={{ code: Code }}>
+      <MDXProvider components={components}>
         <Wrapper>
           <MDXRenderer>{mdx.code.body}</MDXRenderer>
         </Wrapper>
