@@ -5,67 +5,52 @@ import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import Highlight, { defaultProps } from 'prism-react-renderer'
 import { preToCodeBlock } from 'mdx-utils'
+import { Provider, Preview, Editor } from '@matthamlin/react-preview-editor'
 
-import CodeStyles, { dracula } from './CodeStyles.js'
+import ErrorBoundary from './ErrorBoundary.js'
+import { CodeStyles, seaTheme } from './CodeStyles.js'
 
 import { transform } from '@babel/standalone'
-import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import { MDXProvider } from '@mdx-js/tag'
 
+function transformCode(code) {
+  return transform(code, {
+    presets: [['stage-0', { decoratorsLegacy: true }], 'react'],
+  }).code
+}
+
+function getHighlighterProps(props) {
+  return {
+    ...props,
+    theme: seaTheme,
+  }
+}
+
 function Code({ codeString, language, ...props }) {
-  if (props['react-live']) {
-    let { 'react-live': omit, ...p } = props
+  if (props.live) {
     return (
       <>
         <CodeStyles />
-        <LiveProvider
-          noInline
-          transformCode={code =>
-            `${
-              transform(code, {
-                presets: [['stage-0', { decoratorsLegacy: true }], 'react'],
-              }).code
-            }render(<Example />);`
-          }
-          code={codeString}
-          scope={{
-            Component: React.Component,
-            Fragment: React.Fragment,
-          }}
-          mountStylesheet={false}
-          {...p}
-          className={language}
-        >
-          <LivePreview />
-          <LiveError />
-          <LiveEditor />
-        </LiveProvider>
+        <Provider code={codeString} transformCode={transformCode}>
+          <ErrorBoundary>
+            <Preview />
+          </ErrorBoundary>
+          <pre>
+            <Editor getHighlighterProps={getHighlighterProps} />
+          </pre>
+        </Provider>
       </>
     )
   } else {
     return (
       <>
         <CodeStyles />
-        <Highlight
-          {...defaultProps}
-          theme={dracula}
-          code={codeString}
-          language={language}
-        >
-          {({ className, style, tokens, getLineProps, getTokenProps }) => (
-            <pre className={className} style={style}>
-              {tokens.map((line, i) => (
-                <div {...getLineProps({ line, key: i })}>
-                  {line.map((token, key) => (
-                    <span {...getTokenProps({ token, key })} />
-                  ))}
-                </div>
-              ))}
-            </pre>
-          )}
-        </Highlight>
+        <Provider code={codeString}>
+          <pre>
+            <Editor getHighlighterProps={getHighlighterProps} />
+          </pre>
+        </Provider>
       </>
     )
   }

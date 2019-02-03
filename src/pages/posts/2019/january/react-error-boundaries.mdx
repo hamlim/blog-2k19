@@ -81,7 +81,7 @@ a `setState` updater, the error boundary component will not catch it.
 Another caveat, or feature I guess is that if you do want to catch a particular error from an event handler higher up in
 the component tree at your error boundary, you can `throw` from within a setState:
 
-```jsx react-live
+```jsx live
 // Note this is a live editor!
 // Feel free to toy around with the code and see the
 // actual output above!
@@ -101,6 +101,7 @@ class Example extends Component {
     )
   }
 }
+render(<Example />)
 ```
 
 ## A note on getDerivedStateFromError

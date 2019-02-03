@@ -19,7 +19,7 @@ module.exports = {
       options: {
         name: `posts`,
         path: `${__dirname}/src/pages/posts/`,
-        ignore: [`.draft`],
+        ignore: [`**/*.draft.mdx`],
       },
     },
     'gatsby-plugin-twitter',

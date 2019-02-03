@@ -807,6 +807,11 @@
   resolved "https://registry.yarnpkg.com/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
   integrity sha512-n/VQ4mbfr81aqkx/XmVicOLjviMuy02eenSdJY33SVA7S2J42EU0P1H0mOogfYedb3wXA0d/LVtBrgTSm04WEA==
 
+"@matthamlin/react-preview-editor@0.0.11":
+  version "0.0.11"
+  resolved "https://registry.yarnpkg.com/@matthamlin/react-preview-editor/-/react-preview-editor-0.0.11.tgz#6eb9d0ba3fbd45d3fc0cd7d192c932f77885dcc1"
+  integrity sha512-dRJE5w4RCnEeii0wMDME9xjt0K/LZd0ZlRtww7tX5JldFVYYzCwFRA+4t1EKWvss+zoHAqlnrr0tZ7Z6hHLROQ==
+
 "@mdx-js/mdx@0.16.8":
   version "0.16.8"
   resolved "https://registry.yarnpkg.com/@mdx-js/mdx/-/mdx-0.16.8.tgz#9a38de822583f2d33f10c65bbe6e9282005dbee5"
