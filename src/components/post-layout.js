@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
@@ -9,10 +9,11 @@ import { preToCodeBlock } from 'mdx-utils'
 import { Provider, Preview, Editor } from '@matthamlin/react-preview-editor'
 
 import ErrorBoundary from './ErrorBoundary.js'
-import { CodeStyles, seaTheme } from './CodeStyles.js'
+import { DarkThemeStyles, LightThemeStyles } from './CodeStyles.js'
 
 import { transform } from '@babel/standalone'
 import { MDXProvider } from '@mdx-js/tag'
+import { colorContext, Provider as ThemeProvider } from './color-theme'
 
 function transformCode(code) {
   return transform(code, {
@@ -23,15 +24,15 @@ function transformCode(code) {
 function getHighlighterProps(props) {
   return {
     ...props,
-    theme: seaTheme,
+    theme: undefined,
   }
 }
 
-function Code({ codeString, language, ...props }) {
+function Code({ codeString, language, theme, ...props }) {
   if (props.live) {
     return (
       <>
-        <CodeStyles />
+        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
         <Provider code={codeString} transformCode={transformCode}>
           <ErrorBoundary>
             <Preview />
@@ -45,7 +46,7 @@ function Code({ codeString, language, ...props }) {
   } else {
     return (
       <>
-        <CodeStyles />
+        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
         <Provider code={codeString}>
           <pre>
             <Editor getHighlighterProps={getHighlighterProps} />
@@ -63,20 +64,90 @@ const Wrapper = styled.div({
   paddingTop: 0,
 })
 
-const components = {
-  pre: preProps => {
-    const props = preToCodeBlock(preProps)
-    // if there's a codeString and some props, we passed the test
-    if (props) {
-      return <Code {...props} />
-    } else {
-      // it's possible to have a pre without a code in it
-      return <pre {...preProps} />
-    }
-  },
+function getComponents(theme) {
+  return {
+    pre: preProps => {
+      const props = preToCodeBlock(preProps)
+      // if there's a codeString and some props, we passed the test
+      if (props) {
+        return <Code {...props} theme={theme} />
+      } else {
+        // it's possible to have a pre without a code in it
+        return <pre {...preProps} />
+      }
+    },
+  }
 }
 
-export default function Layout(props) {
+const meta = [
+  {
+    name: 'description',
+    content: 'A blog about technology, web development, and other things.',
+  },
+  {
+    name: 'keywords',
+    content: 'blog, technology, web development',
+  },
+]
+
+function Layout(props) {
+  let mdx
+  if (typeof props.data !== 'undefined') {
+    mdx = props.data.mdx
+  } else {
+    mdx = { ...props.pageContext, code: { body: null } }
+  }
+
+  const { theme, toggleTheme } = useContext(colorContext)
+
+  const [showThemePicker, setShowThemePicker] = useState(false)
+
+  useEffect(() => {
+    function listener(event) {
+      if (event.key === '?') {
+        setShowThemePicker(showTheme => !showTheme)
+      }
+    }
+    window.addEventListener('keydown', listener)
+    return () => window.removeEventListener('keydown', listener)
+  }, [])
+
+  return (
+    <>
+      <GlobalStyles />
+      <Header siteTitle={mdx.frontmatter.title} />
+      <MDXProvider components={getComponents(theme)}>
+        {showThemePicker && (
+          <>
+            <label>
+              <input
+                type="radio"
+                name="theme"
+                checked={theme === 'light'}
+                onChange={() => toggleTheme()}
+              />
+              Use light code theme
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="theme"
+                checked={theme === 'dark'}
+                onChange={() => toggleTheme()}
+              />
+              Use dark code theme
+            </label>
+          </>
+        )}
+        <Wrapper>
+          <MDXRenderer>{mdx.code.body}</MDXRenderer>
+        </Wrapper>
+      </MDXProvider>
+    </>
+  )
+}
+
+export default function LayoutWrapper(props) {
   let mdx
   if (typeof props.data !== 'undefined') {
     mdx = props.data.mdx
@@ -84,31 +155,12 @@ export default function Layout(props) {
     mdx = { ...props.pageContext, code: { body: null } }
   }
   return (
-    <>
-      <GlobalStyles />
-      <Helmet
-        title={mdx.frontmatter.title}
-        meta={[
-          {
-            name: 'description',
-            content:
-              'A blog about technology, web development, and other things.',
-          },
-          {
-            name: 'keywords',
-            content: 'blog, technology, web development',
-          },
-        ]}
-      >
+    <ThemeProvider>
+      <Helmet title={mdx.frontmatter.title} meta={meta}>
         <html lang="en" />
       </Helmet>
-      <Header siteTitle={mdx.frontmatter.title} />
-      <MDXProvider components={components}>
-        <Wrapper>
-          <MDXRenderer>{mdx.code.body}</MDXRenderer>
-        </Wrapper>
-      </MDXProvider>
-    </>
+      <Layout {...props} />
+    </ThemeProvider>
   )
 }
 
