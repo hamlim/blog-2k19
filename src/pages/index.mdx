@@ -1,27 +1,31 @@
 import { Link, graphql } from 'gatsby'
+import BlogList from '../components/BlogList.js'
 
 # Hey 👋
 
-Welcome to my blog, this is an initial early version of the site.
-
-Its built with awesome tools like:
-
-- `gatsby`
-- `mdx`
-- `@matthamlin/react-preview-editor`
-- and `emotion`
-
-Expect to see more content showing up here as I migrate it over from my previous site!
+Hey there, I'm Matt. I'm currently living and working in Boston.
+I am a Senior Software Engineer working on the Frontend Design Systems team at Wayfair. In my free time
+I like to work on several different [side projects](https://github.com/hamlim), and somehow find time to
+write some blog posts as well.
 
 ## Blog Posts
 
-<ul>
-  {props.data.allMdx.edges.map(({ node }) => (
-    <li key={node.id}>
-      <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-    </li>
-  ))}
-</ul>
+<BlogList
+  nodes={props.data.allMdx.edges.filter(
+    ({ node }) => !node.fields.slug.includes('legacy')
+  )}
+/>
+
+## Old Posts
+
+These are posts that may have many dead links, and in general might not have
+much content worth reading.
+
+<BlogList
+  nodes={props.data.allMdx.edges.filter(({ node }) =>
+    node.fields.slug.includes('legacy')
+  )}
+/>
 
 export const pageQuery = graphql`
   query blogIndex {
