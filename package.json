@@ -11,10 +11,9 @@
     "@matthamlin/react-preview-editor": "0.0.11",
     "@mdx-js/tag": "0.16.8",
     "prismjs": "1.15.0",
-    "react": "16.8.0-alpha.1",
-    "react-dom": "16.8.0-alpha.1",
-    "react-helmet": "^5.2.0",
-    "react-live": "1.12.0"
+    "react": "16.8.1",
+    "react-dom": "16.8.1",
+    "react-helmet": "^5.2.0"
   },
   "keywords": [
     "gatsby"
