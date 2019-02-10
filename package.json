@@ -12,6 +12,7 @@
     "@mdx-js/tag": "0.16.8",
     "prismjs": "1.15.0",
     "react": "16.8.1",
+    "react-collapsed": "1.0.0",
     "react-dom": "16.8.1",
     "react-helmet": "^5.2.0"
   },
@@ -23,18 +24,22 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write '**/*.js'",
-    "now-build": "npm run build"
+    "now-build": "npm run build",
+    "test": "jest"
   },
   "devDependencies": {
     "@mdx-js/mdx": "0.16.8",
+    "babel-jest": "24.1.0",
     "gatsby": "^2.0.0",
     "gatsby-mdx": "0.3.5",
+    "gatsby-plugin-alias-imports": "1.0.5",
     "gatsby-plugin-feed": "2.0.11",
     "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-twitter": "2.0.8",
     "gatsby-remark-prismjs": "3.2.4",
     "gatsby-source-filesystem": "2.0.19",
+    "jest": "24.1.0",
     "mdx-utils": "0.0.2",
     "prettier": "^1.14.2",
     "prism-react-renderer": "0.1.5",

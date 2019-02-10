@@ -6,7 +6,21 @@ import Flex from './Flex.js'
 
 import { jsx, css } from '@emotion/core'
 
+import { parseDate } from './utils/date-and-time.js';
+
+function sortByDate(nodes) {
+  const duplicate = [...nodes];
+  console.log(duplicate);
+  duplicate.sort((nodeA, nodeB) => {
+    if (nodeA) {
+
+    }
+  })
+  return nodes;
+}
+
 export default function BlogList({ nodes }) {
+  const sortedNodes = sortByDate(nodes);
   const [renderingChunk, setRenderingChunk] = useState(0)
   const chunked = useMemo(() => {
     return nodes.reduce((chunked, node) => {
@@ -39,14 +53,14 @@ export default function BlogList({ nodes }) {
         >
           <button
             disabled={renderingChunk === 0}
-            className={renderingChunk !== 0 && 'accent-bg'}
+            className={renderingChunk !== 0 ? 'accent-bg' : null}
             onClick={() => setRenderingChunk(renderingChunk - 1)}
           >
             Previous Posts
           </button>
           <button
             disabled={renderingChunk === chunked.length - 1}
-            className={renderingChunk !== chunked.length - 1 && 'accent-bg'}
+            className={renderingChunk !== chunked.length - 1 ? 'accent-bg' : null}
             onClick={() =>
               setRenderingChunk(
                 renderingChunk === chunked.length ? 0 : renderingChunk + 1

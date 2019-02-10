@@ -25,5 +25,13 @@ module.exports = {
     'gatsby-plugin-twitter',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: {
+          "@components": "src/components"
+        }
+      }
+    }
   ],
 }

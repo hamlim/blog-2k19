@@ -5,57 +5,13 @@ import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-import { preToCodeBlock } from 'mdx-utils'
-import { Provider, Preview, Editor } from '@matthamlin/react-preview-editor'
 
-import ErrorBoundary from './ErrorBoundary.js'
-import { DarkThemeStyles, LightThemeStyles } from './CodeStyles.js'
-
-import { transform } from '@babel/standalone'
 import { MDXProvider } from '@mdx-js/tag'
 import { colorContext, Provider as ThemeProvider } from './color-theme'
 
-function transformCode(code) {
-  return transform(code, {
-    presets: [['stage-0', { decoratorsLegacy: true }], 'react'],
-  }).code
-}
+import { preToCodeBlock } from 'mdx-utils'
 
-function getHighlighterProps(props) {
-  return {
-    ...props,
-    theme: undefined,
-  }
-}
-
-function Code({ codeString, language, theme, ...props }) {
-  if (props.live) {
-    return (
-      <>
-        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
-        <Provider code={codeString} transformCode={transformCode}>
-          <ErrorBoundary>
-            <Preview />
-          </ErrorBoundary>
-          <pre>
-            <Editor getHighlighterProps={getHighlighterProps} />
-          </pre>
-        </Provider>
-      </>
-    )
-  } else {
-    return (
-      <>
-        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
-        <Provider code={codeString}>
-          <pre>
-            <Editor getHighlighterProps={getHighlighterProps} />
-          </pre>
-        </Provider>
-      </>
-    )
-  }
-}
+import Code from './Code.js'
 
 const Wrapper = styled.div({
   margin: '0 auto',

@@ -36,6 +36,8 @@ export default function GlobalStyles() {
           text-rendering: optimizeLegibility;
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
+
+          --active: #76dc99;
         }
 
         html {
@@ -124,6 +126,10 @@ export default function GlobalStyles() {
 
         a:hover {
           text-decoration: underline;
+        }
+
+        a:active {
+          text-decoration-color: var(--active);
         }
 
         small {
@@ -493,11 +499,11 @@ export default function GlobalStyles() {
         }
 
         .accent {
-          color: #76dc99;
+          color: var(--active);
         }
 
         .accent-bg {
-          background-color: #76dc99;
+          background-color: var(--active);
         }
       `}
     />
