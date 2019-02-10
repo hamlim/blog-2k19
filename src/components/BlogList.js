@@ -10,20 +10,38 @@ import { parseDate } from './utils/date-and-time.js';
 
 function sortByDate(nodes) {
   const duplicate = [...nodes];
-  console.log(duplicate);
   duplicate.sort((nodeA, nodeB) => {
-    if (nodeA) {
-
+    const { node: { frontmatter: { publishDate: publishDateA }}} = nodeA
+    const { node: { frontmatter: { publishDate: publishDateB }}} = nodeB
+    let hasADate = typeof publishDateA !== 'undefined';
+    let hasBDate = typeof publishDateB !== 'undefined';
+    if (!hasADate && !hasBDate) {
+      return 0
+    } else if (!hasADate && hasBDate) {
+      return 1
+    } else if (hasADate && !hasBDate) {
+      return -1;
+    } else if (hasADate && hasBDate) {
+      let aDate = parseDate(publishDateA);
+      let bDate = parseDate(publishDateB);
+      if (aDate < bDate) {
+        return 1
+      } else if (bDate < aDate) {
+        return -1;
+      }
+      return 0;
+    } else {
+      return 0
     }
   })
-  return nodes;
+  return duplicate;
 }
 
 export default function BlogList({ nodes }) {
-  const sortedNodes = sortByDate(nodes);
+  const sortedNodes = useMemo(() => sortByDate(nodes), [nodes]);
   const [renderingChunk, setRenderingChunk] = useState(0)
   const chunked = useMemo(() => {
-    return nodes.reduce((chunked, node) => {
+    return sortedNodes.reduce((chunked, node) => {
       if (
         Array.isArray(chunked[chunked.length - 1]) &&
         chunked[chunked.length - 1].length < 5
@@ -34,7 +52,7 @@ export default function BlogList({ nodes }) {
         return [...chunked, [node]]
       }
     }, [])
-  }, [nodes])
+  }, [sortedNodes])
   const list = chunked[renderingChunk]
   return (
     <>
