@@ -51,7 +51,7 @@ export default function Code({
                     <ErrorBoundary>
                       <Preview />
                     </ErrorBoundary>
-                    <pre>
+                    <pre className="language-">
                       <Editor getHighlighterProps={getHighlighterProps} />
                     </pre>
                   </Provider>
@@ -66,7 +66,7 @@ export default function Code({
                     <DarkThemeStyles />
                   )}
                   <Provider code={code}>
-                    <pre>
+                    <pre className="language-">
                       <Editor getHighlighterProps={getHighlighterProps} />
                     </pre>
                   </Provider>
@@ -86,7 +86,7 @@ export default function Code({
           <ErrorBoundary>
             <Preview />
           </ErrorBoundary>
-          <pre>
+          <pre className="language-">
             <Editor getHighlighterProps={getHighlighterProps} />
           </pre>
         </Provider>
@@ -97,7 +97,7 @@ export default function Code({
       <>
         {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
         <Provider code={code}>
-          <pre>
+          <pre className="language-">
             <Editor getHighlighterProps={getHighlighterProps} />
           </pre>
         </Provider>
