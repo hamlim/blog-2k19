@@ -1,12 +1,14 @@
 import { Link, graphql } from 'gatsby'
-import BlogList from '../components/BlogList.js'
+import BlogList from '@components/BlogList.js'
+import { ControlledToggle as Toggle } from '@components/Toggle.js'
 
 # Hey 👋
 
-Hey there, I'm Matt. I'm currently living and working in Boston.
-I am a Senior Software Engineer working on the Frontend Design Systems team at Wayfair. In my free time
-I like to work on several different [side projects](https://github.com/hamlim), and somehow find time to
-write some blog posts as well.
+Hey there, I'm Matt. I'm currently living and working in Boston. I am a Senior
+Software Engineer working on the Frontend Design Systems team at Wayfair. In my
+free time I like to work on several different
+[side projects](https://github.com/hamlim), and somehow find time to write some
+blog posts as well.
 
 ## Blog Posts
 
@@ -15,6 +17,8 @@ write some blog posts as well.
     ({ node }) => !node.fields.slug.includes('legacy')
   )}
 />
+
+<Toggle />
 
 ## Old Posts
 
@@ -34,7 +38,7 @@ export const pageQuery = graphql`
         node {
           id
           frontmatter {
-            title,
+            title
             publishDate
           }
           fields {
