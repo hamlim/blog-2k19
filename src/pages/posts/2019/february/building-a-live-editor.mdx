@@ -3,21 +3,27 @@ title: Building a Live Editor
 publishDate: '02-03-2019'
 ---
 
+import Footer from '@components/PostFooter.js'
+
 # Building a Live Editor
 
-As I have been working on my personal blog, I wanted to include the ability to edit code on site,
-and also preview it live. I started using [react-live](https://github.com/FormidableLabs/react-live)
-which I have had prior experience using and setting up, however I wanted to customize the theme of
-the editor a bit and try to work on a new and challenging task over the weekend.
+As I have been working on my personal blog, I wanted to include the ability to
+edit code on site, and also preview it live. I started using
+[react-live](https://github.com/FormidableLabs/react-live) which I have had
+prior experience using and setting up, however I wanted to customize the theme
+of the editor a bit and try to work on a new and challenging task over the
+weekend.
 
-So I decided to build `@matthamlin/react-preview-editor` ([see the project here](https://github.com/hamlim/react-preview-editor)).
+So I decided to build `@matthamlin/react-preview-editor`
+([see the project here](https://github.com/hamlim/react-preview-editor)).
 
 ## Starting Off with Executing Code
 
-I started off by looking at the source of react-live to figure out how they are able to actually call
-the code that you edit inline. It turns out, that they use the `new Function` contructor to pass the code
-as a string along with an assortment of the keys of the things within scope for the code, and then call the
-function.
+I started off by looking at the source of react-live to figure out how they are
+able to actually call the code that you edit inline. It turns out, that they use
+the `new Function` contructor to pass the code as a string along with an
+assortment of the keys of the things within scope for the code, and then call
+the function.
 
 ```js
 function evaluateCode(code, scope) {
@@ -29,20 +35,22 @@ function evaluateCode(code, scope) {
 }
 ```
 
-This allows us to evaluate code that the user types within the editor on the site,
-and probably goes without saying but could be a really bad™️ thing to do with live user
-input.
+This allows us to evaluate code that the user types within the editor on the
+site, and probably goes without saying but could be a really bad™️ thing to do
+with live user input.
 
-So now that we know how to actually execute the users code, how do we build the editor part?
+So now that we know how to actually execute the users code, how do we build the
+editor part?
 
 ## The Code Editor
 
-Well that part is actually pretty simple, because other awesome developers out there, have already
-shared open source projects for editing code within the browser. Since I wanted to
-keep the project fairly small, I went with [react-simple-code-editor](http://satya164.xyz/react-simple-code-editor/).
+Well that part is actually pretty simple, because other awesome developers out
+there, have already shared open source projects for editing code within the
+browser. Since I wanted to keep the project fairly small, I went with
+[react-simple-code-editor](http://satya164.xyz/react-simple-code-editor/).
 
-This editor allows me to control the highlighting of the code complete, and also is really easy
-to just start using:
+This editor allows me to control the highlighting of the code complete, and also
+is really easy to just start using:
 
 ```jsx
 <Editor
@@ -56,12 +64,13 @@ to just start using:
 />
 ```
 
-Great, so we have a way to execute the code, and a way to edit the code, what about the
-syntax highlighting though?
+Great, so we have a way to execute the code, and a way to edit the code, what
+about the syntax highlighting though?
 
 ## Highlighting the Code
 
-Well we are just as lucky as we were before, thanks to the [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer)
+Well we are just as lucky as we were before, thanks to the
+[prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer)
 library, we are able to use a React wrapping API around the `prismjs` library.
 
 This ends up looking like:
@@ -111,7 +120,10 @@ render(
 )
 ```
 
-Be sure to checkout the project here: [github.com/hamlim/react-preview-editor](https://github.com/hamlim/react-preview-editor)
-on GitHub (make sure to <span aria-label="star">⭐</span> it too <span aria-label="smile">😆</span>).
+Be sure to checkout the project here:
+[github.com/hamlim/react-preview-editor](https://github.com/hamlim/react-preview-editor)
+on GitHub (make sure to ⭐ it too 😆).
 
 And check it out in CodeSandbox [here](https://codesandbox.io/s/wk69q5zv9k).
+
+<Footer />
