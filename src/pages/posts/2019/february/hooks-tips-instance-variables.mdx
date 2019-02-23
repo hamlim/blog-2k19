@@ -11,10 +11,14 @@ import Footer from '@components/PostFooter.js'
 > decent initial understanding of React Hooks. I highly suggest starting with
 > the [ReactJS Docs](https://reactjs.org/docs/hooks-intro.html) to learn more.
 
-Frequently, `class` based components can have a decent number of Instance
+Frequently, `class` based components can have a decent number of instance
 variables on them that are unrelated to state or props. These might be used to
 store refs for elements, or other data that you may need within the component.
-Here is an example of a class based component that uses a few instance methods:
+
+These values are useful to store on the instance because updating them does not
+trigger a re-render of the component. Here is an example of a class based
+component that uses a few instance methods (_Note_: This is using a non-standard
+JavaScript syntax to assign the instance variables.):
 
 ```jsx
 class InstanceComponent extends React.Component {
@@ -30,7 +34,7 @@ class InstanceComponent extends React.Component {
 }
 ```
 
-When migrating to Hooks, React offers the `useRef` hook, which is a convinient
+When migrating to Hooks, React offers the `useRef` hook, which is a convenient
 way to store some mutable data through the lifecycle of a component.
 
 Lets take a look at what this looks like with hooks:
@@ -46,7 +50,8 @@ function HookComponent() {
 
   // Note, the inputRef is just a regular old element ref
   // in this case, so we can use `createRef` which will assign
-  // the instance for us
+  // the instance for us. We could also still use `useRef` here and it
+  // will continue to work as expected!
   const inputRef = React.createRef()
 }
 ```
@@ -102,7 +107,7 @@ While this may look beneficial, and may be easier to access the properties, it
 makes it potentially more difficult to split up the logic into separate hooks.
 
 In general, **always prefer to keep `useRef` (and `useState`) calls limited in
-scope**, and bias towards hook composition instead.
+scope**, and bias towards hook composition instead.[^1]
 
 From our first example above, we may want to split the timer instance variable
 into a custom `useTimer` hook that our component can leverage, and the
@@ -111,4 +116,11 @@ into a custom `useTimer` hook that our component can leverage, and the
 For additional insight into how to `useRef`, refer to the
 [ReactJS Docs](https://reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables)
 
+_Thanks to Dillon Curry for reviewing an earlier version of this post_
+
 <Footer />
+
+[^1]:
+
+  I should write yet another blog post about why I have this preference, but for
+  now feel free to accept it as a pattern.
