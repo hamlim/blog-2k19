@@ -156,6 +156,7 @@ export function UncontrolledToggle({ onChange, checked }) {
                 border-radius: 30px;
                 transition: all 0.2s ease;
                 background-color: hsl(222, 14%, 7%);
+                position: relative;
 
                 .react-toggle:hover & {
                   background-color: #000000;
@@ -168,15 +169,11 @@ export function UncontrolledToggle({ onChange, checked }) {
               className={cx(
                 css`
                   position: absolute;
-                  width: 17px;
-                  height: 17px;
-                  left: 5px;
-                  top: 9px;
+                  padding-left: 4px;
                   font-size: 18px;
-                  bottom: 0px;
-                  margin-top: auto;
-                  margin-bottom: auto;
-                  line-height: 0;
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
                   opacity: 0;
                   transition: opacity 0.25s ease;
 
@@ -193,16 +190,10 @@ export function UncontrolledToggle({ onChange, checked }) {
             <div
               className={cx(
                 css`
-                  position: absolute;
-                  width: 17px;
-                  height: 17px;
-                  right: 5px;
-                  top: 9px;
                   font-size: 18px;
-                  bottom: 0px;
-                  margin-top: auto;
-                  margin-bottom: auto;
-                  line-height: 0;
+                  display: flex;
+                  justify-content: flex-end;
+                  align-items: center;
                   opacity: 1;
                   transition: opacity 0.25s ease;
 
