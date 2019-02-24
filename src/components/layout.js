@@ -1,9 +1,15 @@
-import React from 'react'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from 'react'
 import Helmet from 'react-helmet'
 import { StaticQuery, graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
+import { colorContext, Provider as ThemeProvider } from './color-theme'
+import { MDXProvider } from '@mdx-js/tag'
+import MDXComponents from './mdx-components.js'
 
 const Wrapper = styled.div({
   margin: '0 auto',
@@ -12,43 +18,60 @@ const Wrapper = styled.div({
   paddingTop: 0,
 })
 
-const Layout = ({ children }) => (
-  <>
-    <GlobalStyles />
-    <StaticQuery
-      query={graphql`
-        query RegularSiteTitleQuery {
-          site {
-            siteMetadata {
-              title
+function LayoutImpl({ children }) {
+  const { theme, toggleTheme } = useContext(colorContext)
+  return (
+    <>
+      <GlobalStyles theme={theme} />
+      <StaticQuery
+        query={graphql`
+          query RegularSiteTitleQuery {
+            site {
+              siteMetadata {
+                title
+              }
             }
           }
-        }
-      `}
-      render={data => (
-        <>
-          <Helmet
-            title={data.site.siteMetadata.title}
-            meta={[
-              {
-                name: 'description',
-                content:
-                  'A blog about technology, web development, and other things.',
-              },
-              {
-                name: 'keywords',
-                content: 'blog, technology, web development',
-              },
-            ]}
+        `}
+        render={data => (
+          <main
+            css={css({
+              color: 'var(--textNormal)',
+              background: 'var(--bg)',
+              transition: 'color 0.2s ease-out, background 0.2s ease-out',
+            })}
           >
-            <html lang="en" />
-          </Helmet>
-          <Header siteTitle={data.site.siteMetadata.title} />
-          <Wrapper>{children}</Wrapper>
-        </>
-      )}
-    />
-  </>
-)
+            <Helmet
+              title={data.site.siteMetadata.title}
+              meta={[
+                {
+                  name: 'description',
+                  content:
+                    'A blog about technology, web development, and other things.',
+                },
+                {
+                  name: 'keywords',
+                  content: 'blog, technology, web development',
+                },
+              ]}
+            >
+              <html lang="en" />
+            </Helmet>
+            <Header currentTheme={theme} onThemeToggle={toggleTheme} />
+            <MDXProvider components={MDXComponents}>
+              <Wrapper>{children}</Wrapper>
+            </MDXProvider>
+          </main>
+        )}
+      />
+    </>
+  )
+}
 
-export default Layout
+export default function Layout(props) {
+  return (
+    <ThemeProvider>
+      <LayoutImpl {...props} />
+    </ThemeProvider>
+  )
+}

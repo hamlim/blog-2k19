@@ -52,11 +52,15 @@ export default function GlobalStyles() {
 
         body {
           padding: 0;
-          margin: calc((100vh / 25) * 1.563) calc((100vw / 25) * 1.563);
+          margin: 0;
           background-color: white;
           font-weight: 400;
           line-height: 1.563;
           color: #343334;
+        }
+
+        main {
+          padding: calc((100vh / 25) * 1.563) calc((100vw / 25) * 1.563);
         }
 
         /* Typography
@@ -504,6 +508,35 @@ export default function GlobalStyles() {
 
         .accent-bg {
           background-color: var(--active);
+        }
+
+        body.light {
+          --bg: #ffffff;
+          --header: var(--pink);
+          --textNormal: #222;
+          --textTitle: #222;
+          --textLink: #d23669;
+          --hr: hsla(0, 0%, 0%, 0.2);
+          --inlineCode-bg: rgba(255, 229, 100, 0.2);
+          --inlineCode-text: #1a1a1a;
+        }
+
+        body.dark {
+          -webkit-font-smoothing: antialiased;
+
+          --bg: #282c35;
+          --header: #ffffff;
+          --textNormal: rgba(255, 255, 255, 0.88);
+          --textTitle: #ffffff;
+          --textLink: var(--pink);
+          --hr: hsla(0, 0%, 100%, 0.2);
+          --inlineCode-bg: hsl(222, 14%, 25%);
+          --inlineCode-text: #e6e6e6;
+        }
+
+        pre[class*='language-'],
+        code[class*='language-'] {
+          transition: 'color 0.2s ease-out, background 0.2s ease-out';
         }
       `}
     />
