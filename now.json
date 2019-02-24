@@ -7,5 +7,6 @@
       "use": "@now/static-build",
       "config": { "distDir": "public" }
     }
-  ]
+  ],
+  "alias": "https://matthamlin.me"
 }
