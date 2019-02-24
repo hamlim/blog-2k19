@@ -13,9 +13,11 @@ export function Provider({ children }) {
   const [theme, setTheme] = useState('light')
 
   React.useLayoutEffect(() => {
-    setTheme(window.__theme)
-    window.__onThemeChange = () => {
+    if (typeof window !== 'undefined') {
       setTheme(window.__theme)
+      window.__onThemeChange = () => {
+        setTheme(window.__theme)
+      }
     }
   }, [theme])
 
