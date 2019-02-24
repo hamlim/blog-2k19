@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from 'react'
+/** @jsx jsx */
+import { jsx, css } from '@emotion/core'
+// eslint-disable-next-line no-unused-vars
+import React, { useContext } from 'react'
 import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 import MDXRenderer from 'gatsby-mdx/mdx-renderer'
-
 import { MDXProvider } from '@mdx-js/tag'
 import { colorContext, Provider as ThemeProvider } from './color-theme'
-
 import { preToCodeBlock } from 'mdx-utils'
-
+import MDXComponents from './mdx-components.js'
 import Code from './Code.js'
 
 const Wrapper = styled.div({
@@ -32,6 +33,7 @@ function getComponents(theme) {
         return <pre {...preProps} />
       }
     },
+    ...MDXComponents,
   }
 }
 
@@ -56,50 +58,22 @@ function Layout(props) {
 
   const { theme, toggleTheme } = useContext(colorContext)
 
-  const [showThemePicker, setShowThemePicker] = useState(false)
-
-  useEffect(() => {
-    function listener(event) {
-      if (event.key === '?') {
-        setShowThemePicker(showTheme => !showTheme)
-      }
-    }
-    window.addEventListener('keydown', listener)
-    return () => window.removeEventListener('keydown', listener)
-  }, [])
-
   return (
-    <>
+    <main
+      css={css({
+        color: 'var(--textNormal)',
+        background: 'var(--bg)',
+        transition: 'color 0.2s ease-out, background 0.2s ease-out',
+      })}
+    >
       <GlobalStyles />
-      <Header siteTitle={mdx.frontmatter.title} />
+      <Header currentTheme={theme} onThemeToggle={toggleTheme} />
       <MDXProvider components={getComponents(theme)}>
-        {showThemePicker && (
-          <>
-            <label>
-              <input
-                type="radio"
-                name="theme"
-                checked={theme === 'light'}
-                onChange={() => toggleTheme()}
-              />
-              Use light code theme
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="theme"
-                checked={theme === 'dark'}
-                onChange={() => toggleTheme()}
-              />
-              Use dark code theme
-            </label>
-          </>
-        )}
         <Wrapper>
           <MDXRenderer>{mdx.code.body}</MDXRenderer>
         </Wrapper>
       </MDXProvider>
-    </>
+    </main>
   )
 }
 

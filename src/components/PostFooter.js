@@ -1,5 +1,6 @@
 import React from 'react'
 import { Location } from '@reach/router'
+import Link from './Link.js'
 
 export default function Footer() {
   return (
@@ -14,14 +15,14 @@ export default function Footer() {
             <p>
               Have feedback about this post or questions, don't hesitate to
               reach out on{' '}
-              <a href="https://mobile.twitter.com/immatthamlin">
+              <Link href="https://mobile.twitter.com/immatthamlin">
                 Twitter (@immatthamlin)
-              </a>
+              </Link>
               !
             </p>
             <p>
               Follow the discussion on this blog post on{' '}
-              <a href={twitterLink}>twitter</a>.
+              <Link href={twitterLink}>twitter</Link>.
             </p>
           </>
         )

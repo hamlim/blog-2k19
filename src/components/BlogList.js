@@ -1,44 +1,51 @@
 /** @jsx jsx */
+import { jsx, css } from '@emotion/core'
 // eslint-disable-next-line
 import React, { useState, useMemo } from 'react'
-import { Link } from 'gatsby'
+import Link from './Link.js'
 import Flex from './Flex.js'
 
-import { jsx, css } from '@emotion/core'
-
-import { parseDate } from './utils/date-and-time.js';
+import { parseDate } from './utils/date-and-time.js'
 
 function sortByDate(nodes) {
-  const duplicate = [...nodes];
+  const duplicate = [...nodes]
   duplicate.sort((nodeA, nodeB) => {
-    const { node: { frontmatter: { publishDate: publishDateA }}} = nodeA
-    const { node: { frontmatter: { publishDate: publishDateB }}} = nodeB
-    let hasADate = typeof publishDateA !== 'undefined';
-    let hasBDate = typeof publishDateB !== 'undefined';
+    const {
+      node: {
+        frontmatter: { publishDate: publishDateA },
+      },
+    } = nodeA
+    const {
+      node: {
+        frontmatter: { publishDate: publishDateB },
+      },
+    } = nodeB
+    let hasADate = typeof publishDateA !== 'undefined'
+    let hasBDate = typeof publishDateB !== 'undefined'
     if (!hasADate && !hasBDate) {
       return 0
     } else if (!hasADate && hasBDate) {
       return 1
     } else if (hasADate && !hasBDate) {
-      return -1;
+      return -1
     } else if (hasADate && hasBDate) {
-      let aDate = parseDate(publishDateA);
-      let bDate = parseDate(publishDateB);
+      let aDate = parseDate(publishDateA)
+      let bDate = parseDate(publishDateB)
       if (aDate < bDate) {
         return 1
       } else if (bDate < aDate) {
-        return -1;
+        return -1
       }
-      return 0;
+      return 0
     } else {
       return 0
     }
   })
-  return duplicate;
+  return duplicate
 }
 
 export default function BlogList({ nodes }) {
-  const sortedNodes = useMemo(() => sortByDate(nodes), [nodes]);
+  const sortedNodes = useMemo(() => sortByDate(nodes), [nodes])
   const [renderingChunk, setRenderingChunk] = useState(0)
   const chunked = useMemo(() => {
     return sortedNodes.reduce((chunked, node) => {
@@ -78,7 +85,9 @@ export default function BlogList({ nodes }) {
           </button>
           <button
             disabled={renderingChunk === chunked.length - 1}
-            className={renderingChunk !== chunked.length - 1 ? 'accent-bg' : null}
+            className={
+              renderingChunk !== chunked.length - 1 ? 'accent-bg' : null
+            }
             onClick={() =>
               setRenderingChunk(
                 renderingChunk === chunked.length ? 0 : renderingChunk + 1

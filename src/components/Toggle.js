@@ -170,7 +170,7 @@ export function UncontrolledToggle({ onChange, checked }) {
                 css`
                   position: absolute;
                   width: 17px;
-                  height: 17px;
+                  height: 21px;
                   left: 5px;
                   top: 0px;
                   bottom: 0px;
@@ -201,7 +201,7 @@ export function UncontrolledToggle({ onChange, checked }) {
                 css`
                   position: absolute;
                   width: 17px;
-                  height: 17px;
+                  height: 21px;
                   right: 5px;
                   top: 0px;
                   bottom: 0px;
