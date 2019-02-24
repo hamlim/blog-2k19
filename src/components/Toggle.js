@@ -4,11 +4,10 @@
  * + applied https://github.com/aaronshaf/react-toggle/pull/90
  * + copied from: https://github.com/gaearon/overreacted.io/blob/master/src/components/Toggle.js
  **/
+/* eslint-disable */
 /** @jsx jsx */
 import React from 'react'
 import { jsx, ClassNames } from '@emotion/core'
-import sun from '../assets/sun.png'
-import moon from '../assets/moon.png'
 
 // Copyright 2015-present Drifty Co.
 // http://drifty.com/
@@ -124,7 +123,7 @@ export function UncontrolledToggle({ onChange, checked }) {
   return (
     <ClassNames>
       {({ css, cx }) => (
-        <div
+        <label
           className={cx(
             css`
               touch-action: pan-x;
@@ -170,9 +169,10 @@ export function UncontrolledToggle({ onChange, checked }) {
                 css`
                   position: absolute;
                   width: 17px;
-                  height: 21px;
+                  height: 17px;
                   left: 5px;
-                  top: 0px;
+                  top: 9px;
+                  font-size: 18px;
                   bottom: 0px;
                   margin-top: auto;
                   margin-bottom: auto;
@@ -188,22 +188,17 @@ export function UncontrolledToggle({ onChange, checked }) {
                 'react-toggle-track-check'
               )}
             >
-              <img
-                src={moon}
-                width="16"
-                height="16"
-                alt=""
-                style={{ pointerEvents: 'none' }}
-              />
+              🌓
             </div>
             <div
               className={cx(
                 css`
                   position: absolute;
                   width: 17px;
-                  height: 21px;
+                  height: 17px;
                   right: 5px;
-                  top: 0px;
+                  top: 9px;
+                  font-size: 18px;
                   bottom: 0px;
                   margin-top: auto;
                   margin-bottom: auto;
@@ -218,13 +213,7 @@ export function UncontrolledToggle({ onChange, checked }) {
                 'react-toggle-track-x'
               )}
             >
-              <img
-                src={sun}
-                width="16"
-                height="16"
-                alt=""
-                style={{ pointerEvents: 'none' }}
-              />
+              ☀️
             </div>
           </div>
           <div
@@ -278,7 +267,7 @@ export function UncontrolledToggle({ onChange, checked }) {
             type="checkbox"
             aria-label="Switch between Dark and Light mode"
           />
-        </div>
+        </label>
       )}
     </ClassNames>
   )
