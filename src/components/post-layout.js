@@ -64,15 +64,16 @@ function Layout(props) {
         color: 'var(--textNormal)',
         background: 'var(--bg)',
         transition: 'color 0.2s ease-out, background 0.2s ease-out',
+        minHeight: '100vh',
       })}
     >
       <GlobalStyles />
-      <Header currentTheme={theme} onThemeToggle={toggleTheme} />
-      <MDXProvider components={getComponents(theme)}>
-        <Wrapper>
+      <Wrapper>
+        <Header currentTheme={theme} onThemeToggle={toggleTheme} />
+        <MDXProvider components={getComponents(theme)}>
           <MDXRenderer>{mdx.code.body}</MDXRenderer>
-        </Wrapper>
-      </MDXProvider>
+        </MDXProvider>
+      </Wrapper>
     </main>
   )
 }

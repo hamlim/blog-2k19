@@ -1,4 +1,5 @@
-import { Link, graphql } from 'gatsby'
+import { graphql } from 'gatsby'
+import Link from '@components/Link.js'
 import BlogList from '@components/BlogList.js'
 
 # Hey 👋
@@ -16,7 +17,6 @@ blog posts as well.
     ({ node }) => !node.fields.slug.includes('legacy')
   )}
 />
-
 
 ## Old Posts
 
@@ -47,3 +47,8 @@ export const pageQuery = graphql`
     }
   }
 `
+
+---
+
+This site is built using a lot of <Link to="/credits">cool open source
+libraries</Link>.
