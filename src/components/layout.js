@@ -39,6 +39,7 @@ function LayoutImpl({ children }) {
               color: 'var(--textNormal)',
               background: 'var(--bg)',
               transition: 'color 0.2s ease-out, background 0.2s ease-out',
+              minHeight: '100vh',
             })}
           >
             <Helmet
@@ -57,10 +58,11 @@ function LayoutImpl({ children }) {
             >
               <html lang="en" />
             </Helmet>
-            <Header currentTheme={theme} onThemeToggle={toggleTheme} />
-            <MDXProvider components={MDXComponents}>
-              <Wrapper>{children}</Wrapper>
-            </MDXProvider>
+
+            <Wrapper>
+              <Header currentTheme={theme} onThemeToggle={toggleTheme} />
+              <MDXProvider components={MDXComponents}>{children}</MDXProvider>
+            </Wrapper>
           </main>
         )}
       />

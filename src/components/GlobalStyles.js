@@ -37,7 +37,8 @@ export default function GlobalStyles() {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
 
-          --active: #76dc99;
+          --accent: hsl(141, 59%, 66%);
+          --accent-dark: hsl(141, 40%, 50%);
         }
 
         html {
@@ -57,6 +58,7 @@ export default function GlobalStyles() {
           font-weight: 400;
           line-height: 1.563;
           color: #343334;
+          min-height: 100vh;
         }
 
         main {
@@ -133,7 +135,7 @@ export default function GlobalStyles() {
         }
 
         a:active {
-          text-decoration-color: var(--active);
+          text-decoration-color: var(--accent);
         }
 
         small {
@@ -503,11 +505,11 @@ export default function GlobalStyles() {
         }
 
         .accent {
-          color: var(--active);
+          color: var(--accent);
         }
 
         .accent-bg {
-          background-color: var(--active);
+          background-color: var(--accent);
         }
 
         body.light {

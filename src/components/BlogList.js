@@ -4,6 +4,7 @@ import { jsx, css } from '@emotion/core'
 import React, { useState, useMemo } from 'react'
 import Link from './Link.js'
 import Flex from './Flex.js'
+import AccentButton from './AccentButton.js'
 
 import { parseDate } from './utils/date-and-time.js'
 
@@ -76,26 +77,26 @@ export default function BlogList({ nodes }) {
             justify-content: space-around;
           `}
         >
-          <button
-            disabled={renderingChunk === 0}
-            className={renderingChunk !== 0 ? 'accent-bg' : null}
-            onClick={() => setRenderingChunk(renderingChunk - 1)}
-          >
-            Previous Posts
-          </button>
-          <button
-            disabled={renderingChunk === chunked.length - 1}
-            className={
-              renderingChunk !== chunked.length - 1 ? 'accent-bg' : null
-            }
-            onClick={() =>
-              setRenderingChunk(
-                renderingChunk === chunked.length ? 0 : renderingChunk + 1
-              )
-            }
-          >
-            More Posts
-          </button>
+          {renderingChunk === 0 ? (
+            <div />
+          ) : (
+            <AccentButton onClick={() => setRenderingChunk(renderingChunk - 1)}>
+              Previous Posts
+            </AccentButton>
+          )}
+          {renderingChunk === chunked.length - 1 ? (
+            <div />
+          ) : (
+            <AccentButton
+              onClick={() =>
+                setRenderingChunk(
+                  renderingChunk === chunked.length ? 0 : renderingChunk + 1
+                )
+              }
+            >
+              More Posts
+            </AccentButton>
+          )}
         </Flex>
       )}
     </>
