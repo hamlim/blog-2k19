@@ -30,6 +30,9 @@ export function monthNumberToMonthName(month) {
 }
 
 export function parseDate(dateString) {
+  if (!dateString) {
+    return null;
+  }
   // MM-DD-YYYY
   let split = dateString.split('-');
   // DD-MM-YYYY

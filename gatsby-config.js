@@ -10,6 +10,7 @@ module.exports = {
       options: {
         defaultLayouts: {
           posts: require.resolve('./src/components/post-layout.js'),
+          recipes: require.resolve('./src/components/HookRecipesLayout.js'),
           default: require.resolve('./src/components/layout.js'),
         },
       },
@@ -22,6 +23,14 @@ module.exports = {
         ignore: [`**/*.draft.mdx`],
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `recipes`,
+        path: `${__dirname}/src/pages/recipes/`,
+        ignore: [`**/*.draft.mdx`],
+      },
+    },
     'gatsby-plugin-twitter',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-offline',
@@ -29,9 +38,9 @@ module.exports = {
       resolve: `gatsby-plugin-alias-imports`,
       options: {
         alias: {
-          "@components": "src/components"
-        }
-      }
-    }
+          '@components': 'src/components',
+        },
+      },
+    },
   ],
 }

@@ -1,0 +1,17 @@
+#### `useLazyRef`
+
+```jsx
+import { useRef } from 'react'
+
+
+const initialValue = '___initial_ref_value___'
+
+
+export function useLazyRef(constructor) {
+  const ref = useRef(initialValue)
+  if (ref.current === initialValue) {
+    ref.current = constructor()
+  }
+  return ref
+}
+```
