@@ -7,7 +7,7 @@ export default function Button(props) {
       {...props}
       css={{
         backgroundColor: !props.disabled ? 'var(--accent)' : '#d8d8d8',
-        color: 'white',
+        color: 'black',
         '&:hover': {
           backgroundColor: !props.disabled ? 'var(--accent-dark)' : '#d8d8d8',
           color: 'white',

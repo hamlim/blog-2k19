@@ -37,8 +37,8 @@ export default function GlobalStyles() {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
 
-          --accent: hsl(141, 59%, 66%);
-          --accent-dark: hsl(141, 40%, 50%);
+          --accent: hsl(122, 39%, 49%);
+          --accent-dark: hsl(173, 100%, 24%);
         }
 
         html {
