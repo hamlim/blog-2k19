@@ -19,15 +19,9 @@ action "Build site" {
   runs = "yarn build"
 }
 
-action "Deploy to Now" {
-  uses = "nuxt/actions-yarn@master"
-  needs = ["Build site"]
-  runs = "yarn deploy"
-}
-
 action "Alias" {
   uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
-  needs = ["On Master", "Deploy to Now"]
+  needs = ["On Master", "Build site"]
   runs = "alias"
   secrets = ["ZEIT_TOKEN"]
 }
