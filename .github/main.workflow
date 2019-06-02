@@ -10,13 +10,13 @@ action "Install dependencies" {
 action "Build site" {
   uses = "nuxt/actions-yarn@master"
   needs = ["Install dependencies"]
-  runs = "build"
+  runs = "yarn build"
 }
 
 action "Deploy to Now" {
   uses = "nuxt/actions-yarn@master"
   needs = ["Build site"]
-  runs = "deploy"
+  runs = "yarn deploy"
 }
 
 action "Alias " {
