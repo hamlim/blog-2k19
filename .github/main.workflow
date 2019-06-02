@@ -28,7 +28,7 @@ action "Deploy" {
 }
 
 action "Alias" {
-  uses = "actions/zeit-now@5c51b26db987d15a0133e4c760924896b4f1512f"
+  uses = "actions/zeit-now@master"
   needs = ["On Master", "Deploy"]
   args = "alias"
   secrets = ["ZEIT_TOKEN"]
