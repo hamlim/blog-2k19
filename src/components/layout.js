@@ -8,7 +8,7 @@ import styled from '@emotion/styled'
 import Header from './header'
 import GlobalStyles from './GlobalStyles.js'
 import { colorContext, Provider as ThemeProvider } from './color-theme'
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider } from '@mdx-js/tag'
 import MDXComponents from './mdx-components.js'
 
 const Wrapper = styled.div({
