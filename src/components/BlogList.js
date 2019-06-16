@@ -55,12 +55,20 @@ export default function BlogList({ nodes }) {
   return (
     <>
       <ul>
-        {list.map(({ node }) => (
-          <li key={node.id}>
-            <Link to={node.fields.slug}>{node.frontmatter.title}</Link> -{' '}
-            {parseDate(node.frontmatter.publishDate).toDateString()}
-          </li>
-        ))}
+        {list.map(({ node }) => {
+          let date = parseDate(node.frontmatter.publishDate)
+          if (typeof date.toDateString === 'function') {
+            date = date.toDateString()
+          } else {
+            date = date.toString()
+          }
+          return (
+            <li key={node.id}>
+              <Link to={node.fields.slug}>{node.frontmatter.title}</Link> -{' '}
+              {date}
+            </li>
+          )
+        })}
       </ul>
       {chunked.length > 1 && (
         <Flex
