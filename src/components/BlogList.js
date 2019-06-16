@@ -5,7 +5,7 @@ import React, { useState, useMemo } from 'react'
 import Link from './Link.js'
 import Flex from './Flex.js'
 import AccentButton from './AccentButton.js'
-
+import { chunkArray } from './utils/chunk-array.js'
 import { parseDate } from './utils/date-and-time.js'
 
 function sortByDate(nodes) {
@@ -46,28 +46,19 @@ function sortByDate(nodes) {
 }
 
 export default function BlogList({ nodes }) {
-  const sortedNodes = useMemo(() => sortByDate(nodes), [nodes])
   const [renderingChunk, setRenderingChunk] = useState(0)
   const chunked = useMemo(() => {
-    return sortedNodes.reduce((chunked, node) => {
-      if (
-        Array.isArray(chunked[chunked.length - 1]) &&
-        chunked[chunked.length - 1].length < 5
-      ) {
-        const [last, ...first] = chunked.reverse()
-        return [...first, [...last, node]]
-      } else {
-        return [...chunked, [node]]
-      }
-    }, [])
-  }, [sortedNodes])
+    const sortedNodes = sortByDate(nodes)
+    return chunkArray(sortedNodes)
+  }, [nodes])
   const list = chunked[renderingChunk]
   return (
     <>
       <ul>
         {list.map(({ node }) => (
           <li key={node.id}>
-            <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+            <Link to={node.fields.slug}>{node.frontmatter.title}</Link> -{' '}
+            {parseDate(node.frontmatter.publishDate).toDateString()}
           </li>
         ))}
       </ul>
