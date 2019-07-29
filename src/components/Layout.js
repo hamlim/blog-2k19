@@ -1,6 +1,6 @@
-import React from "react"
-import { css, Styled } from "theme-ui"
-import Header from "../components/Header"
+import React from 'react'
+import { css, Styled } from 'theme-ui'
+import Header from '../components/Header'
 
 export default ({ children, ...props }) => (
   <Styled.root>
