@@ -1,8 +1,9 @@
 import React from 'react'
 import { Provider, Preview, Editor } from '@matthamlin/react-preview-editor'
 import ErrorBoundary from './ErrorBoundary.js'
-import { DarkThemeStyles, LightThemeStyles } from './CodeStyles.js'
+import { DarkThemeStyles } from './CodeStyles.js'
 import { transform } from '@babel/standalone'
+import { css } from 'theme-ui'
 
 import { Details, Summary, DetailsBody } from './Details.js'
 
@@ -26,6 +27,7 @@ export default function Code({
   theme,
   ...props
 }) {
+  console.log(props)
   let code
   if (children) {
     code = children
@@ -40,12 +42,12 @@ export default function Code({
           {(() => {
             if (props.live) {
               return (
-                <>
-                  {theme === 'light' ? (
-                    <LightThemeStyles />
-                  ) : (
-                    <DarkThemeStyles />
-                  )}
+                <div
+                  css={css({
+                    pb: 2,
+                  })}
+                >
+                  <DarkThemeStyles />
                   <Provider code={code} transformCode={transformCode}>
                     <ErrorBoundary>
                       <Preview />
@@ -54,22 +56,22 @@ export default function Code({
                       <Editor getHighlighterProps={getHighlighterProps} />
                     </pre>
                   </Provider>
-                </>
+                </div>
               )
             } else {
               return (
-                <>
-                  {theme === 'light' ? (
-                    <LightThemeStyles />
-                  ) : (
-                    <DarkThemeStyles />
-                  )}
+                <div
+                  css={css({
+                    pb: 2,
+                  })}
+                >
+                  <DarkThemeStyles />
                   <Provider code={code}>
                     <pre className="language-">
                       <Editor getHighlighterProps={getHighlighterProps} />
                     </pre>
                   </Provider>
-                </>
+                </div>
               )
             }
           })()}
@@ -79,8 +81,12 @@ export default function Code({
   }
   if (props.live) {
     return (
-      <>
-        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
+      <div
+        css={css({
+          pb: 2,
+        })}
+      >
+        <DarkThemeStyles />
         <Provider code={code} transformCode={transformCode}>
           <ErrorBoundary>
             <Preview />
@@ -89,18 +95,22 @@ export default function Code({
             <Editor getHighlighterProps={getHighlighterProps} />
           </pre>
         </Provider>
-      </>
+      </div>
     )
   } else {
     return (
-      <>
-        {theme === 'light' ? <LightThemeStyles /> : <DarkThemeStyles />}
+      <div
+        css={css({
+          pb: 2,
+        })}
+      >
+        <DarkThemeStyles />
         <Provider code={code}>
           <pre className="language-">
             <Editor getHighlighterProps={getHighlighterProps} />
           </pre>
         </Provider>
-      </>
+      </div>
     )
   }
 }

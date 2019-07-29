@@ -3,8 +3,6 @@ title: React Error Boundaries
 date: 2019-01-26
 ---
 
-
-
 The other week I got an email from a developer wondering if I could help them
 learn more about Error Boundaries within React.
 
@@ -97,8 +95,14 @@ boundary, you can `throw` from within a setState:
 // actual output above!
 class Example extends Component {
   handleChange = e => {
+    let {
+      target: { value },
+    } = e
     this.setState(() => {
-      throw new Error("Error!")
+      if (value.includes('foo')) {
+        throw new Error('Error!')
+      }
+      return null
     })
   }
   render() {
@@ -106,7 +110,12 @@ class Example extends Component {
       <input
         onChange={this.handleChange}
         placeholder="Try typing here!"
-        style={{ height: 35, fontSize: 18, width: "100%", padding: "1rem" }}
+        style={{
+          height: 35,
+          fontSize: 18,
+          width: 'calc(100% - 2em)',
+          padding: '1rem',
+        }}
       />
     )
   }

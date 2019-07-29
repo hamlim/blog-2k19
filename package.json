@@ -8,9 +8,13 @@
     "build": "gatsby build"
   },
   "dependencies": {
+    "@babel/standalone": "7.5.5",
+    "@matthamlin/react-preview-editor": "0.0.11",
     "gatsby": "^2.13.39",
     "gatsby-theme-blog": "^1.0.0",
+    "mdx-utils": "0.2.0",
     "react": "^16.8.6",
+    "react-collapsed": "1.0.0",
     "react-dom": "^16.8.6",
     "react-switch": "5.0.1"
   },
