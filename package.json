@@ -1,56 +1,21 @@
 {
-  "name": "blog-2k19",
-  "description": "My personal site",
+  "name": "gatsby-starter-blog-theme",
   "private": true,
-  "version": "0.0.0",
-  "author": "Matthew Hamlin <matthewjameshamlin@gmail.com>",
-  "dependencies": {
-    "@babel/standalone": "7.4.5",
-    "@emotion/core": "10.0.10",
-    "@emotion/styled": "10.0.12",
-    "@matthamlin/react-preview-editor": "0.0.11",
-    "now": "15.5.0",
-    "prismjs": "1.16.0",
-    "react": "16.8.6",
-    "react-collapsed": "1.0.0",
-    "react-dom": "16.8.6",
-    "react-helmet": "^5.2.0"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
+  "version": "0.0.1",
   "scripts": {
-    "build": "gatsby build",
-    "deploy": "now",
     "develop": "gatsby develop",
-    "format": "prettier --write '**/*.js'",
-    "now-build": "yarn build",
-    "test": "jest"
+    "start": "gatsby develop",
+    "build": "gatsby build"
+  },
+  "dependencies": {
+    "gatsby": "^2.13.39",
+    "gatsby-theme-blog": "^1.0.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-switch": "5.0.1"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-class-properties": "7.4.4",
-    "@mdx-js/mdx": "0.16.8",
-    "@mdx-js/tag": "0.16.8",
-    "babel-jest": "24.8.0",
-    "babel-preset-gatsby": "0.1.11",
-    "gatsby": "^2.0.0",
-    "gatsby-mdx": "0.3.5",
-    "gatsby-plugin-alias-imports": "1.0.5",
-    "gatsby-plugin-feed": "2.2.3",
-    "gatsby-plugin-offline": "^2.0.5",
-    "gatsby-plugin-react-helmet": "^3.0.0",
-    "gatsby-plugin-twitter": "2.0.13",
-    "gatsby-remark-prismjs": "3.2.11",
-    "gatsby-source-filesystem": "2.0.39",
-    "jest": "24.8.0",
-    "mdx-utils": "0.1.1",
-    "prettier": "^1.14.2",
-    "prism-react-renderer": "0.1.6",
-    "webpack-dev-server": ">=3.1.11"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hamlim/blog-2k19"
+    "gatsby-source-filesystem": "2.1.6",
+    "gatsby-theme-notes": "1.0.3"
   }
 }
