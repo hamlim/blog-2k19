@@ -1,37 +1,38 @@
-const mdxFeed = require('gatsby-mdx/feed')
-
 module.exports = {
-  siteMetadata: {
-    title: 'Matt Hamlin',
-  },
   plugins: [
     {
-      resolve: 'gatsby-mdx',
+      resolve: `gatsby-theme-notes`,
       options: {
-        defaultLayouts: {
-          posts: require.resolve('./src/components/post-layout.js'),
-          default: require.resolve('./src/components/layout.js'),
-        },
+        mdx: true,
+        basePath: `/notes`,
       },
+    },
+    {
+      resolve: `gatsby-theme-blog`,
+      options: {},
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/src/pages/posts/`,
-        ignore: [`**/*.draft.mdx`],
+        path: `${__dirname}/content/posts/`,
       },
     },
-    'gatsby-plugin-twitter',
-    'gatsby-plugin-react-helmet',
-    'gatsby-plugin-offline',
-    {
-      resolve: `gatsby-plugin-alias-imports`,
-      options: {
-        alias: {
-          "@components": "src/components"
-        }
-      }
-    }
   ],
+  // Customize your site metadata:
+  siteMetadata: {
+    title: `Matt Hamlin's Blog`,
+    author: `Matt Hamlin`,
+    description: `A collection of blog posts.`,
+    social: [
+      {
+        name: `twitter`,
+        url: `https://twitter.com/immatthamlin`,
+      },
+      {
+        name: `github`,
+        url: `https://github.com/hamlim`,
+      },
+    ],
+  },
 }
