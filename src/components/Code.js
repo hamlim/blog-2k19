@@ -27,7 +27,6 @@ export default function Code({
   theme,
   ...props
 }) {
-  console.log(props)
   let code
   if (children) {
     code = children
