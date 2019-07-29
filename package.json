@@ -1,11 +1,16 @@
 {
-  "name": "gatsby-starter-blog-theme",
+  "name": "blog-2k19",
+  "description": "My personal site",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "author": "Matthew Hamlin <matthewjameshamlin@gmail.com>",
   "scripts": {
+    "build": "gatsby build",
+    "deploy": "now",
     "develop": "gatsby develop",
-    "start": "gatsby develop",
-    "build": "gatsby build"
+    "format": "prettier --write '**/*.js'",
+    "now-build": "yarn build",
+    "test": "jest"
   },
   "dependencies": {
     "@babel/standalone": "7.5.5",
@@ -19,6 +24,7 @@
     "react-switch": "5.0.1"
   },
   "devDependencies": {
+    "jest": "24.8.0",
     "gatsby-source-filesystem": "2.1.6",
     "gatsby-theme-notes": "1.0.3"
   }
