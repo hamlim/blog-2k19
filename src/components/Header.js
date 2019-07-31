@@ -1,10 +1,10 @@
-import React from "react"
-import { Link } from "gatsby"
-import { css, useColorMode, Styled } from "theme-ui"
-import Switch from "./switch"
-import Bio from "../gatsby-theme-blog/components/bio"
-import sun from "../../content/assets/sun.png"
-import moon from "../../content/assets/moon.png"
+import React from 'react'
+import { Link } from 'gatsby'
+import { css, useColorMode, Styled } from 'theme-ui'
+import Switch from './Switch'
+import Bio from '../gatsby-theme-blog/components/bio'
+import sun from '../../content/assets/sun.png'
+import moon from '../../content/assets/moon.png'
 
 const rootPath = `${__PATH_PREFIX__}/`
 
