@@ -1,0 +1,32 @@
+on: push
+name: Build and Deploy on Push
+jobs:
+  installDependencies:
+    name: Install dependencies
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Install dependencies
+      uses: nuxt/actions-yarn@master
+      with:
+        entrypoint: yarn
+        args: install
+    - name: Build site
+      uses: nuxt/actions-yarn@master
+      with:
+        entrypoint: yarn
+        args: build
+    - name: Deploy
+      uses: actions/zeit-now@master
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+    - name: On Master
+      uses: actions/bin/filter@master
+      with:
+        args: branch master
+    - name: Alias
+      uses: actions/zeit-now@master
+      env:
+        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      with:
+        args: alias
