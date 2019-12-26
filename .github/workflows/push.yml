@@ -17,16 +17,15 @@ jobs:
         entrypoint: yarn
         args: build
     - name: Deploy
-      uses: actions/zeit-now@master
-      env:
-        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      uses: amondnet/now-deployment@v1
+      with:
+        zeit-token: ${{ secrets.ZEIT_TOKEN }}
     - name: On Master
       uses: actions/bin/filter@master
       with:
         args: branch master
     - name: Alias
-      uses: actions/zeit-now@master
-      env:
-        ZEIT_TOKEN: ${{ secrets.ZEIT_TOKEN }}
+      uses: amondnet/now-deployment@v1
       with:
-        args: alias
+        zeit-token: ${{ secrets.ZEIT_TOKEN }}
+        now-args: alias
